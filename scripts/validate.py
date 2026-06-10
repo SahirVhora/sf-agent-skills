@@ -14,9 +14,10 @@ try:
         cat = json.load(f)
     assert 'metadata' in cat, 'Missing metadata'
     assert 'skills' in cat, 'Missing skills'
-    assert len(cat['skills']) == 10, f'Expected 10 skills, got {len(cat["skills"])}'
+    expected = cat.get('metadata', {}).get('totalSkills')
+    assert len(cat['skills']) == expected, f'Expected {expected} skills, got {len(cat["skills"])}'
     skill_ids = {s['id'] for s in cat['skills']}
-    assert len(skill_ids) == 10, 'Duplicate skill IDs'
+    assert len(skill_ids) == len(cat['skills']), 'Duplicate skill IDs'
     for s in cat['skills']:
         for field in ['id','name','tagline','category','severity','inputs','outputs','time','phases','detail','edgeCases','prompt','exampleOutput']:
             assert field in s, f'Skill {s.get("id","?")} missing field: {field}'

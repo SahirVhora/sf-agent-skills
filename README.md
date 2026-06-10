@@ -5,7 +5,7 @@
 
 **AI skills for SAP SuccessFactors consultants.** Turn messy configuration, migration risk, and workshop prep into repeatable AI-assisted workflows.
 
-Ten production skills covering governance, data quality, data integrity, migration, consulting, and quality assurance. Each skill is a composable, auditable workflow that an AI agent can execute - with zero employee data extraction.
+Twenty production skills covering governance, security, compliance, release governance, integration, operations, analytics, onboarding, time/payroll, compensation, data quality, migration, consulting, and quality assurance. Each skill is a composable, auditable workflow that an AI agent can execute - with zero employee data extraction.
 
 ## Live Site
 
@@ -16,15 +16,25 @@ Ten production skills covering governance, data quality, data integrity, migrati
 | # | Skill | Domain | Severity | Time |
 |---|-------|--------|----------|------|
 | 1 | Config Debt Workshop | Governance | HIGH | 15-25 min |
-| 2 | Business Rule Risk Review | Governance | HIGH | 15-30 min |
-| 3 | Position Integrity Review | Data Integrity | CRITICAL | 10-20 min |
-| 4 | Migration Readiness Check | Migration | CRITICAL | 10-15 min |
+| 2 | Position Integrity Review | Data Integrity | CRITICAL | 10-20 min |
+| 3 | Migration Readiness Check | Migration | CRITICAL | 10-15 min |
+| 4 | Business Rule Risk Review | Governance | HIGH | 15-30 min |
 | 5 | Picklist Rationalisation | Data Quality | MEDIUM | 8-12 min |
 | 6 | Foundation Object Cleanup | Data Quality | HIGH | 12-20 min |
 | 7 | Client Discovery Questions | Consulting | MEDIUM | 5-10 min |
 | 8 | 90-Day Remediation Roadmap | Consulting | HIGH | 5-8 min |
 | 9 | Executive Summary Writer | Consulting | MEDIUM | 2-4 min |
-| 10 | Test Scenario Generator | QA | HIGH | 8-15 min |
+| 10 | Test Scenario Generator | Quality Assurance | HIGH | 8-15 min |
+| 11 | RBP Permission Auditor | Security | CRITICAL | 20-35 min |
+| 12 | Tenant Drift Detector | Release Governance | HIGH | 10-20 min |
+| 13 | Release Impact Triage | Release Governance | HIGH | 8-15 min |
+| 14 | DRTM and GDPR Readiness | Compliance | CRITICAL | 15-25 min |
+| 15 | Integration Health Monitor | Integration | HIGH | 15-30 min |
+| 16 | Workflow Stuck Item Triage | Operations | HIGH | 10-18 min |
+| 17 | People Analytics Quality Review | Analytics | MEDIUM | 12-22 min |
+| 18 | Onboarding Compliance Review | Onboarding | HIGH | 15-25 min |
+| 19 | Time Tracking Rule Audit | Time and Payroll | CRITICAL | 20-35 min |
+| 20 | Compensation Eligibility Audit | Compensation | HIGH | 15-28 min |
 
 Each skill SKILL.md includes: prerequisites, full workflow steps, edge cases with handling, common pitfalls, and a verification checklist.
 
@@ -90,7 +100,7 @@ sf-agent-skills/
       SKILL.md
     sf-migration-readiness/
       SKILL.md
-    ... (10 skills total)
+    ... (20 skills total)
   README.md
   .nojekyll
 ```
