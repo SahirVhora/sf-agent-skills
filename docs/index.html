@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
@@ -20,10 +20,11 @@
 <meta name="robots" content="index, follow">
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 36 36'><rect width='36' height='36' rx='8' fill='%23c8a84e'/><text x='18' y='26' text-anchor='middle' font-size='22' font-family='sans-serif' fill='%23090d14'>SF</text></svg>">
 <style>
-:root { color-scheme:dark; --bg:#090d14; --sidebar-bg:#0d1119; --card-bg:#111620; --card-hover:#171c28; --border:#1c212b; --text:#e6e9f0; --muted:#5f6675; --bright:#c5c9d4; --accent:#c8a84e; --accent-soft:rgba(200,168,78,0.08); --radius:6px; --red:#fb7185; --amber:#fbbf24; --green:#34d399; --blue:#38bdf8; --purple:#c084fc; }
+:root,[data-theme="dark"] { color-scheme:dark; --bg:#090d14; --sidebar-bg:#0d1119; --card-bg:#111620; --card-hover:#171c28; --border:#1c212b; --text:#e6e9f0; --muted:#5f6675; --bright:#c5c9d4; --accent:#c8a84e; --accent-soft:rgba(200,168,78,0.08); --radius:6px; --red:#fb7185; --amber:#fbbf24; --green:#34d399; --blue:#38bdf8; --purple:#c084fc; }
+[data-theme="light"] { color-scheme:light; --bg:#f8f6f2; --sidebar-bg:#ffffff; --card-bg:#ffffff; --card-hover:#f0ede8; --border:#d8d2c8; --text:#1a1815; --muted:#6f675c; --bright:#2b2720; --accent:#5b4fd4; --accent-soft:rgba(91,79,212,0.10); --red:#c93030; --amber:#a96816; --green:#287a3e; --blue:#2563eb; --purple:#7c3aed; }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
-body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;background:var(--bg);color:var(--text);line-height:1.6;display:flex;min-height:100vh;overflow-x:hidden}
+body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;background:var(--bg);color:var(--text);line-height:1.6;display:flex;min-height:100vh;overflow-x:hidden;transition:background .3s ease,color .3s ease}
 #sidebar{width:280px;min-width:280px;background:var(--sidebar-bg);border-right:1px solid var(--border);display:flex;flex-direction:column;position:fixed;top:0;left:0;bottom:0;z-index:100;transition:transform .3s;overflow-y:auto;padding:0}
 #sidebar-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.6);z-index:99}
 #main{margin-left:280px;flex:1;padding:40px 48px;max-width:960px;min-height:100vh}
@@ -35,6 +36,9 @@ body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;background:var(--
 }
 #hamburger{display:none;position:fixed;top:12px;left:12px;z-index:200;width:36px;height:36px;background:var(--sidebar-bg);border:1px solid var(--border);border-radius:6px;color:var(--text);font-size:20px;cursor:pointer;align-items:center;justify-content:center}
 @media(max-width:768px){#hamburger{display:flex}}
+.theme-toggle-btn{position:fixed;top:18px;right:18px;z-index:210;width:36px;height:36px;border-radius:50%;border:1.5px solid var(--border);background:var(--card-bg);color:var(--bright);font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .3s ease;box-shadow:0 8px 24px rgba(0,0,0,.16)}
+.theme-toggle-btn:hover{border-color:var(--accent);color:var(--accent);box-shadow:0 0 16px rgba(200,168,78,.15);transform:rotate(15deg)}
+.theme-toggle-btn:active{transform:scale(.92) rotate(0)}
 #sidebar-header{padding:24px 20px;border-bottom:1px solid var(--border)}
 #sidebar-header h1{font-size:18px;color:var(--accent);margin-bottom:4px}
 #sidebar-header p{font-size:12px;color:var(--muted);line-height:1.3}
@@ -114,6 +118,7 @@ body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;background:var(--
 </head>
 <body>
 <button id="hamburger" onclick="toggleSidebar()" aria-label="Menu">&#9776;</button>
+<button class="theme-toggle-btn" onclick="toggleTheme()" title="Toggle theme" aria-label="Toggle theme">&#9728;</button>
 <div id="sidebar-overlay" onclick="toggleSidebar()"></div>
 <aside id="sidebar">
   <div id="sidebar-header">
@@ -295,6 +300,19 @@ var allSkills = [{"id":"sf-config-debt-workshop","name":"Config Debt Workshop","
 var activeFilters = new Set(['all']);
 var selectedSkillId = null;
 
+function applyTheme(theme) {
+  document.documentElement.setAttribute('data-theme', theme);
+  var btn = document.querySelector('.theme-toggle-btn');
+  if (btn) btn.innerHTML = theme === 'light' ? '&#9790;' : '&#9728;';
+}
+
+function toggleTheme() {
+  var current = document.documentElement.getAttribute('data-theme') || 'dark';
+  var next = current === 'dark' ? 'light' : 'dark';
+  applyTheme(next);
+  localStorage.setItem('sf-agent-skills-theme', next);
+}
+
 function toggleSidebar() {
   var s = document.getElementById('sidebar');
   var o = document.getElementById('sidebar-overlay');
@@ -403,6 +421,7 @@ function closeDetail() {
 function esc(s) { var d=document.createElement('div');d.textContent=s;return d.innerHTML; }
 
 function init() {
+  applyTheme(localStorage.getItem('sf-agent-skills-theme') || 'dark');
   renderSkills();
   document.getElementById('search').addEventListener('input', function(){ renderSkills(); });
   document.addEventListener('keydown', function(e) {
