@@ -5,7 +5,7 @@
 
 **AI skills for SAP SuccessFactors consultants.** Turn messy configuration, migration risk, and workshop prep into repeatable AI-assisted workflows.
 
-Twenty production skills covering governance, security, compliance, release governance, integration, operations, analytics, onboarding, time/payroll, compensation, data quality, migration, consulting, and quality assurance. Each skill is a composable, auditable workflow that an AI agent can execute - with zero employee data extraction.
+Twenty-five production skills covering governance, security, compliance, release governance, integration, operations, analytics, onboarding, time/payroll, compensation, recruiting, Employee Central, data quality, migration, consulting, and quality assurance. Each skill is a composable, auditable workflow that an AI agent can execute - with zero employee data extraction.
 
 ## Live Site
 
@@ -35,6 +35,11 @@ Twenty production skills covering governance, security, compliance, release gove
 | 18 | Onboarding Compliance Review | Onboarding | HIGH | 15-25 min |
 | 19 | Time Tracking Rule Audit | Time and Payroll | CRITICAL | 20-35 min |
 | 20 | Compensation Eligibility Audit | Compensation | HIGH | 15-28 min |
+| 21 | EC Event Reason Decision Tree | Employee Central | CRITICAL | 15-25 min |
+| 22 | EC to Payroll Reconciliation Pack | Time and Payroll | CRITICAL | 20-35 min |
+| 23 | Position to Job Info Alignment Audit | Data Integrity | HIGH | 12-22 min |
+| 24 | Works Council and Privacy Impact Pack | Compliance | HIGH | 10-18 min |
+| 25 | Recruiting Requisition and Offer Approval Audit | Recruiting | HIGH | 15-25 min |
 
 Each skill SKILL.md includes: prerequisites, full workflow steps, edge cases with handling, common pitfalls, and a verification checklist.
 
@@ -100,7 +105,7 @@ sf-agent-skills/
       SKILL.md
     sf-migration-readiness/
       SKILL.md
-    ... (20 skills total)
+    ... (25 skills total)
   README.md
   .nojekyll
 ```

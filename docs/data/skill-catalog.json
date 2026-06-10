@@ -1,8 +1,8 @@
 {
   "metadata": {
     "version": "1.0.0",
-    "updated": "2026-06-10T20:45:00+01:00",
-    "totalSkills": 20
+    "updated": "2026-06-10T21:05:00+01:00",
+    "totalSkills": 25
   },
   "skills": [
     {
@@ -639,6 +639,166 @@
       "relatedTools": [
         "sf-test-scenario-generator",
         "sf-rbp-permission-auditor"
+      ],
+      "installable": true
+    },
+    {
+      "id": "sf-event-reason-decision-tree",
+      "name": "EC Event Reason Decision Tree",
+      "tagline": "Validate hire, rehire, transfer, promotion, termination, and job-change event reason logic before it breaks downstream processes.",
+      "category": "Employee Central",
+      "severity": "CRITICAL",
+      "inputs": "Event reason list, event derivation rules, workflow triggers, payroll/integration mappings",
+      "outputs": "Decision tree, conflict report, missing event reason map, UAT scenarios",
+      "time": "15-25 min",
+      "phases": [
+        "Inventory",
+        "Decision Tree",
+        "Conflict Check",
+        "UAT Pack"
+      ],
+      "detail": "Audits Employee Central event and event reason configuration so every hire, rehire, termination, transfer, promotion, leave, and data correction follows a defensible decision path. Detects duplicate event reasons, missing scenarios, wrong event categories, workflow trigger mismatches, payroll-impacting event errors, and integration mappings that rely on outdated eventReason values.",
+      "edgeCases": [
+        "Rehire with new employment vs rehire on old employment",
+        "Data correction using business event reason",
+        "Promotion plus transfer in same effective-dated change",
+        "Global assignment start/end events",
+        "Termination followed by rescind or no-show",
+        "Country-specific event reason overrides"
+      ],
+      "prompt": "Build an EC event reason decision tree and show where our hire, rehire, transfer, promotion, and termination logic conflicts.",
+      "exampleOutput": "92 event reasons reviewed. CRITICAL: 4, HIGH: 9. Top issue: promotion and transfer both map to DATACHG for payroll export, making downstream payroll unable to distinguish salary-impacting changes. Decision tree created with 37 valid paths and 6 missing event reasons.",
+      "relatedTools": [
+        "sf-rule-map",
+        "sf-config-debt-radar"
+      ],
+      "installable": true
+    },
+    {
+      "id": "sf-ec-payroll-reconciliation-pack",
+      "name": "EC to Payroll Reconciliation Pack",
+      "tagline": "Compare EC configuration against payroll expectations so employee changes do not create pay errors.",
+      "category": "Time and Payroll",
+      "severity": "CRITICAL",
+      "inputs": "EC job/person/pay field mappings, payroll interface spec, event reason mappings, pay component setup",
+      "outputs": "Payroll reconciliation checklist, mismatch categories, cut-off readiness score, exception plan",
+      "time": "20-35 min",
+      "phases": [
+        "Map",
+        "Compare",
+        "Score",
+        "Cut-Off Pack"
+      ],
+      "detail": "Creates a payroll reconciliation pack that checks whether Employee Central changes produce the fields, events, pay components, cost centres, and effective dates payroll expects. Focuses on configuration and mapping alignment, not storing payroll amounts. Flags event reason mismatch, missing pay components, stale payroll area mappings, effective date overlaps, and cut-off risks before payroll processing.",
+      "edgeCases": [
+        "Retroactive job change after payroll cut-off",
+        "Mid-period cost centre transfer",
+        "Pay component starts before hire date",
+        "Terminated employee receives future-dated change",
+        "Global assignment split payroll",
+        "Payroll provider expects label but SF sends externalCode"
+      ],
+      "prompt": "Create an EC to payroll reconciliation pack and show which mappings or event reasons could cause payroll errors this month.",
+      "exampleOutput": "Payroll readiness: 74/100. 5 blockers: transfer event maps to wrong payroll action, 3 pay components missing wage-type mapping, 2 cost centre values inactive in payroll, and retro changes after cut-off have no exception workflow. Recommendation: no-go until blockers cleared.",
+      "relatedTools": [
+        "sf-time-tracking-rule-audit",
+        "sf-event-reason-decision-tree"
+      ],
+      "installable": true
+    },
+    {
+      "id": "sf-position-jobinfo-alignment-audit",
+      "name": "Position to Job Info Alignment Audit",
+      "tagline": "Find where Position attributes and employee JobInfo have drifted apart.",
+      "category": "Data Integrity",
+      "severity": "HIGH",
+      "inputs": "Position data, JobInfo data, propagation rules, sync settings, effective-dated snapshots",
+      "outputs": "Alignment score, mismatch report, propagation rule gaps, safe correction plan",
+      "time": "12-22 min",
+      "phases": [
+        "Extract",
+        "Compare",
+        "Root Cause",
+        "Correction Plan"
+      ],
+      "detail": "Compares Position Management fields against employee JobInfo values to find misalignment in department, division, cost centre, location, job classification, manager, FTE, and custom attributes. Identifies whether drift is caused by missing propagation rules, manual overrides, inactive positions, future-dated changes, or reorganisation timing. Produces a safe correction plan grouped by business impact.",
+      "edgeCases": [
+        "Manual override intentionally differs from position",
+        "Future-dated position change not yet reflected in JobInfo",
+        "Shared position with multiple incumbents",
+        "Vacant position changed before hire assigned",
+        "Country-specific propagation exceptions",
+        "Matrix manager differs from position manager"
+      ],
+      "prompt": "Compare Position and JobInfo data and show where attributes are misaligned or propagation rules are missing.",
+      "exampleOutput": "Alignment score: 81/100. 264 mismatches found: 112 cost centre, 79 department, 41 location, 32 manager. Top risk: 47 employees in Finance have JobInfo cost centres that differ from their positions after reorg, causing finance reporting leakage. Fix plan groups mismatches by propagation rule gap.",
+      "relatedTools": [
+        "sf-position-integrity-review",
+        "sf-foundation-object-cleanup"
+      ],
+      "installable": true
+    },
+    {
+      "id": "sf-works-council-privacy-pack",
+      "name": "Works Council and Privacy Impact Pack",
+      "tagline": "Prepare a client-safe explanation of SF changes for works council, DPO, and privacy review.",
+      "category": "Compliance",
+      "severity": "HIGH",
+      "inputs": "Change description, affected fields, affected populations, access roles, data flows, country scope",
+      "outputs": "Privacy impact summary, works council briefing, data access matrix, consultation checklist",
+      "time": "10-18 min",
+      "phases": [
+        "Change Scope",
+        "Data Map",
+        "Impact Summary",
+        "Consultation Pack"
+      ],
+      "detail": "Turns a planned SuccessFactors change into a plain-English works council and privacy review pack. Explains what is changing, which employee data is affected, who can see it, why it is needed, whether automation or profiling is involved, and what safeguards exist. Especially useful for Germany, France, Netherlands, and other high-consultation environments.",
+      "edgeCases": [
+        "Change affects monitoring or productivity signals",
+        "Sensitive fields visible to managers",
+        "Cross-border data transfer to non-EU processor",
+        "Automated decision support or AI inference involved",
+        "Works council requests field-level access matrix",
+        "Local country process differs from global template"
+      ],
+      "prompt": "Create a works council and privacy impact pack for a new SF change that adds manager visibility to absence and performance indicators.",
+      "exampleOutput": "Privacy impact: High. Works council attention areas: manager visibility of absence trend, performance indicator context, cross-border reporting to global HR. Pack includes field-level data matrix, purpose statement, safeguards, consultation questions, and recommended changes to reduce monitoring concern.",
+      "relatedTools": [
+        "sf-rbp-permission-auditor",
+        "sf-drtm-gdpr-readiness"
+      ],
+      "installable": true
+    },
+    {
+      "id": "sf-recruiting-offer-approval-audit",
+      "name": "Recruiting Requisition and Offer Approval Audit",
+      "tagline": "Check RCM requisition templates, offer approvals, and handoff logic before hiring stalls.",
+      "category": "Recruiting",
+      "severity": "HIGH",
+      "inputs": "RCM requisition templates, offer approval rules, route maps, field permissions, onboarding handoff config",
+      "outputs": "Template health report, approval path gaps, candidate handoff risks, hiring process UAT pack",
+      "time": "15-25 min",
+      "phases": [
+        "Template Inventory",
+        "Approval Map",
+        "Handoff Check",
+        "UAT Pack"
+      ],
+      "detail": "Audits SAP SuccessFactors Recruiting configuration across requisition templates, offer approvals, route maps, candidate status transitions, field permissions, and Recruiting-to-Onboarding handoff. Flags inconsistent template fields, missing approvers, approval loops, offer fields not mapped to onboarding, candidate status dead-ends, and country-specific compliance gaps.",
+      "edgeCases": [
+        "Internal candidate follows different route map",
+        "Offer approval differs by compensation threshold",
+        "Hiring manager changes during requisition approval",
+        "Candidate accepts offer after requisition is closed",
+        "Country-specific offer letter fields missing",
+        "Recruiting-to-Onboarding handoff fails for rehire"
+      ],
+      "prompt": "Audit our recruiting requisition templates and offer approval routing and show what could stall hiring or break onboarding handoff.",
+      "exampleOutput": "23 requisition templates and 11 offer routes reviewed. HIGH: 8 issues. Top risk: UK senior role offer approval skips Finance when salary exceeds threshold because compensation field differs across templates. Handoff gap: 4 offer fields required by Onboarding are blank for internal candidates.",
+      "relatedTools": [
+        "sf-onboarding-compliance-review",
+        "sf-test-scenario-generator"
       ],
       "installable": true
     }
