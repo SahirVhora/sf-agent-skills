@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>SF Agent Skills - AI Skills for SAP SuccessFactors Consultants</title>
+<meta name="description" content="An open agent skills pack for SAP SuccessFactors configuration health, migration readiness, and HR transformation workshops. 10 production skills for repeatable consulting workflows.">
+<meta property="og:title" content="SF Agent Skills - AI Skills for SAP SuccessFactors Consultants">
+<meta property="og:description" content="An open agent skills pack for SAP SuccessFactors configuration health, migration readiness, and HR transformation workshops. 10 production skills for repeatable consulting workflows.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://sahirvhora.github.io/sf-agent-skills/">
+<meta property="og:image" content="https://sahirvhora.github.io/sf-agent-skills/docs/assets/preview.png">
+<meta property="og:image:width" content="1280">
+<meta property="og:image:height" content="640">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="SF Agent Skills - AI Skills for SAP SuccessFactors Consultants">
+<meta name="twitter:description" content="An open agent skills pack for SAP SuccessFactors configuration health, migration readiness, and HR transformation workshops.">
+<meta name="twitter:image" content="https://sahirvhora.github.io/sf-agent-skills/docs/assets/preview.png">
+<link rel="canonical" href="https://sahirvhora.github.io/sf-agent-skills/">
+<meta name="robots" content="index, follow">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 36 36'><rect width='36' height='36' rx='8' fill='%23c8a84e'/><text x='18' y='26' text-anchor='middle' font-size='22' font-family='sans-serif' fill='%23090d14'>SF</text></svg>">
+<style>
+:root { color-scheme:dark; --bg:#090d14; --sidebar-bg:#0d1119; --card-bg:#111620; --card-hover:#171c28; --border:#1c212b; --text:#e6e9f0; --muted:#5f6675; --bright:#c5c9d4; --accent:#c8a84e; --accent-soft:rgba(200,168,78,0.08); --radius:6px; --red:#fb7185; --amber:#fbbf24; --green:#34d399; --blue:#38bdf8; --purple:#c084fc; }
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;background:var(--bg);color:var(--text);line-height:1.6;display:flex;min-height:100vh;overflow-x:hidden}
+#sidebar{width:280px;min-width:280px;background:var(--sidebar-bg);border-right:1px solid var(--border);display:flex;flex-direction:column;position:fixed;top:0;left:0;bottom:0;z-index:100;transition:transform .3s;overflow-y:auto;padding:0}
+#sidebar-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.6);z-index:99}
+#main{margin-left:280px;flex:1;padding:40px 48px;max-width:960px;min-height:100vh}
+@media(max-width:768px){
+  #sidebar{transform:translateX(-100%)}
+  #sidebar.open{transform:translateX(0)}
+  #sidebar-overlay.open{display:block}
+  #main{margin-left:0;padding:20px}
+}
+#hamburger{display:none;position:fixed;top:12px;left:12px;z-index:200;width:36px;height:36px;background:var(--sidebar-bg);border:1px solid var(--border);border-radius:6px;color:var(--text);font-size:20px;cursor:pointer;align-items:center;justify-content:center}
+@media(max-width:768px){#hamburger{display:flex}}
+#sidebar-header{padding:24px 20px;border-bottom:1px solid var(--border)}
+#sidebar-header h1{font-size:18px;color:var(--accent);margin-bottom:4px}
+#sidebar-header p{font-size:12px;color:var(--muted);line-height:1.3}
+#search-wrap{padding:12px 20px;border-bottom:1px solid var(--border)}
+#search{width:100%;padding:8px 12px;background:var(--card-bg);border:1px solid var(--border);border-radius:var(--radius);color:var(--text);font-size:13px;outline:none}
+#search:focus{border-color:var(--accent)}
+#nav{flex:1;overflow-y:auto;padding:8px 0}
+.nav-section{padding:0}
+.nav-header{padding:10px 20px;font-size:11px;font-weight:700;text-transform:uppercase;color:var(--muted);cursor:pointer;display:flex;align-items:center;justify-content:space-between;user-select:none}
+.nav-header:hover{color:var(--bright)}
+.nav-header .chevron{transition:transform .2s;font-size:10px}
+.nav-header.open .chevron{transform:rotate(90deg)}
+.nav-items{display:none;padding:0 0 8px}
+.nav-header.open+.nav-items{display:block}
+.nav-item{display:block;padding:6px 20px 6px 32px;font-size:13px;color:var(--muted);text-decoration:none;transition:background .15s,color .15s;border-left:2px solid transparent;cursor:pointer}
+.nav-item:hover{color:var(--text);background:var(--accent-soft)}
+.nav-item.active{color:var(--accent);border-left-color:var(--accent);background:var(--accent-soft)}
+.nav-item .badge{float:right;font-size:11px;padding:1px 6px;border-radius:10px;background:var(--accent-soft);color:var(--accent);margin-top:1px}
+#sidebar-footer{padding:12px 20px;border-top:1px solid var(--border);font-size:11px;color:var(--muted);display:flex;align-items:center;gap:6px}
+#sidebar-footer .dot{width:8px;height:8px;border-radius:50%;background:var(--green);display:inline-block;flex-shrink:0}
+.chip-row{display:flex;flex-wrap:wrap;gap:6px;margin:12px 0}
+.chip{padding:4px 12px;font-size:12px;border-radius:20px;cursor:pointer;border:1px solid var(--border);background:var(--card-bg);color:var(--muted);transition:all .15s;user-select:none}
+.chip:hover{color:var(--text);border-color:var(--accent)}
+.chip.active{background:var(--accent-soft);border-color:var(--accent);color:var(--accent)}
+.hero{margin-bottom:32px}
+.hero h2{font-size:28px;color:var(--bright);margin-bottom:8px}
+.hero p{font-size:15px;color:var(--muted);max-width:640px}
+.metrics{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px;margin-bottom:32px}
+.metric-card{background:var(--card-bg);border:1px solid var(--border);border-radius:10px;padding:16px 20px;text-align:center}
+.metric-card .number{font-size:28px;font-weight:700;color:var(--bright);font-family:'SF Mono','Cascadia Code','JetBrains Mono',monospace}
+.metric-card .label{font-size:12px;color:var(--muted);margin-top:4px}
+.skill-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(380px,1fr));gap:14px}
+.skill-card{background:var(--card-bg);border:1px solid var(--border);border-radius:10px;padding:20px;cursor:pointer;transition:background .15s,border-color .15s,transform .15s}
+.skill-card:hover{background:var(--card-hover);border-color:var(--accent);transform:translateY(-2px)}
+.skill-card.hidden{display:none}
+.skill-card.selected{border-color:var(--accent);box-shadow:0 0 0 1px var(--accent-soft)}
+.skill-card .title-row{display:flex;align-items:center;gap:8px;margin-bottom:6px;flex-wrap:wrap}
+.skill-card .title{font-size:16px;font-weight:600;color:var(--bright)}
+.skill-card .tag{padding:2px 8px;font-size:11px;font-weight:600;border-radius:4px;text-transform:uppercase;white-space:nowrap}
+.tag-critical{background:#fb718533;color:var(--red)}
+.tag-high{background:#fbbf2433;color:var(--amber)}
+.tag-medium{background:#38bdf833;color:var(--blue)}
+.tag-low{background:#34d39933;color:var(--green)}
+.skill-card .tagline{font-size:13px;color:var(--muted);margin-bottom:10px;line-height:1.4}
+.skill-card .meta{font-size:11px;color:var(--muted);display:flex;flex-wrap:wrap;gap:12px}
+.skill-card .meta span{display:flex;align-items:center;gap:4px}
+#detail-panel{display:none;margin-top:24px;background:var(--card-bg);border:1px solid var(--accent);border-radius:10px;padding:28px;position:relative}
+#detail-panel.visible{display:block}
+#detail-close{position:absolute;top:12px;right:16px;background:none;border:none;color:var(--muted);font-size:20px;cursor:pointer}
+#detail-close:hover{color:var(--text)}
+#detail-panel .detail-title{font-size:22px;font-weight:600;color:var(--bright);margin-bottom:4px}
+#detail-panel .detail-category{font-size:12px;color:var(--accent);text-transform:uppercase;margin-bottom:12px}
+#detail-panel .detail-desc{font-size:14px;color:var(--text);line-height:1.7;margin-bottom:16px}
+.detail-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px}
+@media(max-width:600px){.detail-grid{grid-template-columns:1fr}}
+.detail-box{background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:14px}
+.detail-box h4{font-size:11px;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
+.detail-box p{font-size:13px;color:var(--text);line-height:1.5}
+.detail-phases{display:flex;gap:6px;margin-bottom:16px;flex-wrap:wrap}
+.detail-phase{padding:3px 10px;font-size:11px;border-radius:12px;background:var(--accent-soft);color:var(--accent)}
+.detail-edge ul{list-style:none;padding:0;margin-top:6px;display:flex;flex-wrap:wrap;gap:6px}
+.detail-edge li{font-size:12px;background:var(--card-bg);border:1px solid var(--border);border-radius:6px;padding:4px 10px;color:var(--muted)}
+.detail-output{background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:14px;margin-bottom:16px;font-size:13px;color:var(--text);line-height:1.5;font-family:'SF Mono','Cascadia Code','JetBrains Mono',monospace}
+.detail-prompt{background:var(--bg);border:1px solid var(--accent);border-left:3px solid var(--accent);border-radius:8px;padding:14px;margin-bottom:16px;font-size:13px;color:var(--bright);font-family:'SF Mono','Cascadia Code','JetBrains Mono',monospace}
+.crosslink-row{display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap;align-items:center;font-size:12px;color:var(--muted)}
+.crosslink-row a{color:var(--accent);text-decoration:none;background:var(--accent-soft);padding:2px 10px;border-radius:12px;font-size:11px}
+.crosslink-row a:hover{text-decoration:underline}
+.safe-box{border:1px solid var(--green);border-left:4px solid var(--green);border-radius:8px;padding:14px;margin:24px 0;background:rgba(52,211,153,0.04)}
+.safe-box h4{font-size:13px;color:var(--green);margin-bottom:6px}
+.safe-box p{font-size:12px;color:var(--muted);line-height:1.5}
+.empty-state{text-align:center;padding:60px 20px;color:var(--muted)}
+.empty-state .icon{font-size:40px;margin-bottom:12px}
+#result-count{font-size:12px;color:var(--muted);margin-bottom:12px}
+@page{margin:20mm}
+@media print{#sidebar,#hamburger,#sidebar-overlay,#search-wrap,.chip-row{display:none!important}#main{margin-left:0;padding:0;max-width:100%}.skill-card{break-inside:avoid;border:1px solid #ccc;background:#fff;color:#000}.skill-card .title{color:#000}.skill-card .tagline{color:#333}.skill-card .meta{color:#666}}
+</style>
+</head>
+<body>
+<button id="hamburger" onclick="toggleSidebar()" aria-label="Menu">&#9776;</button>
+<div id="sidebar-overlay" onclick="toggleSidebar()"></div>
+<aside id="sidebar">
+  <div id="sidebar-header">
+    <h1>SF Agent Skills</h1>
+    <p>Production skills for SAP SuccessFactors consultants</p>
+  </div>
+  <div id="search-wrap">
+    <input type="search" id="search" placeholder="Search skills..." autocomplete="off">
+  </div>
+  <nav id="nav">
+    <div class="nav-section">
+      <div class="nav-header open" onclick="toggleNav(this)"><span>Governance</span><span class="chevron">&#9654;</span></div>
+      <div class="nav-items">
+        <a class="nav-item" onclick="clickNav('sf-config-debt-workshop')" data-sid="sf-config-debt-workshop">Config Debt Workshop<span class="badge">HIGH</span></a>
+        <a class="nav-item" onclick="clickNav('sf-business-rule-risk')" data-sid="sf-business-rule-risk">Business Rule Risk<span class="badge">HIGH</span></a>
+      </div>
+    </div>
+    <div class="nav-section">
+      <div class="nav-header" onclick="toggleNav(this)"><span>Data Quality</span><span class="chevron">&#9654;</span></div>
+      <div class="nav-items">
+        <a class="nav-item" onclick="clickNav('sf-picklist-rationalisation')" data-sid="sf-picklist-rationalisation">Picklist Rationalisation<span class="badge">MEDIUM</span></a>
+        <a class="nav-item" onclick="clickNav('sf-foundation-object-cleanup')" data-sid="sf-foundation-object-cleanup">Foundation Object Cleanup<span class="badge">HIGH</span></a>
+      </div>
+    </div>
+    <div class="nav-section">
+      <div class="nav-header" onclick="toggleNav(this)"><span>Data Integrity</span><span class="chevron">&#9654;</span></div>
+      <div class="nav-items">
+        <a class="nav-item" onclick="clickNav('sf-position-integrity-review')" data-sid="sf-position-integrity-review">Position Integrity<span class="badge">CRITICAL</span></a>
+      </div>
+    </div>
+    <div class="nav-section">
+      <div class="nav-header" onclick="toggleNav(this)"><span>Migration</span><span class="chevron">&#9654;</span></div>
+      <div class="nav-items">
+        <a class="nav-item" onclick="clickNav('sf-migration-readiness')" data-sid="sf-migration-readiness">Migration Readiness<span class="badge">CRITICAL</span></a>
+      </div>
+    </div>
+    <div class="nav-section">
+      <div class="nav-header" onclick="toggleNav(this)"><span>Consulting</span><span class="chevron">&#9654;</span></div>
+      <div class="nav-items">
+        <a class="nav-item" onclick="clickNav('sf-client-discovery')" data-sid="sf-client-discovery">Client Discovery<span class="badge">MEDIUM</span></a>
+        <a class="nav-item" onclick="clickNav('sf-90-day-roadmap')" data-sid="sf-90-day-roadmap">90-Day Roadmap<span class="badge">HIGH</span></a>
+        <a class="nav-item" onclick="clickNav('sf-exec-summary')" data-sid="sf-exec-summary">Executive Summary<span class="badge">MEDIUM</span></a>
+      </div>
+    </div>
+    <div class="nav-section">
+      <div class="nav-header" onclick="toggleNav(this)"><span>QA</span><span class="chevron">&#9654;</span></div>
+      <div class="nav-items">
+        <a class="nav-item" onclick="clickNav('sf-test-scenario-generator')" data-sid="sf-test-scenario-generator">Test Scenarios<span class="badge">HIGH</span></a>
+      </div>
+    </div>
+  </nav>
+  <div id="sidebar-footer"><span class="dot"></span> Living document - June 2026</div>
+</aside>
+
+<main id="main">
+  <section class="hero">
+    <h2>AI skills for SAP SuccessFactors consultants</h2>
+    <p>Turn messy configuration, migration risk, and workshop prep into repeatable AI-assisted workflows. Ten skills, one marketplace, zero employee data extraction.</p>
+  </section>
+
+  <div class="metrics">
+    <div class="metric-card"><div class="number">10</div><div class="label">Production skills</div></div>
+    <div class="metric-card"><div class="number">6</div><div class="label">SAP SF domains</div></div>
+    <div class="metric-card"><div class="number">50+</div><div class="label">Edge cases handled</div></div>
+    <div class="metric-card"><div class="number">100%</div><div class="label">Client-safe by default</div></div>
+  </div>
+
+  <div class="chip-row" id="chip-row">
+    <button class="chip active" onclick="filterSkills(this,'all')">All</button>
+    <button class="chip" onclick="filterSkills(this,'critical')">Critical</button>
+    <button class="chip" onclick="filterSkills(this,'high')">High</button>
+    <button class="chip" onclick="filterSkills(this,'medium')">Medium</button>
+    <button class="chip" onclick="filterSkills(this,'governance')">Governance</button>
+    <button class="chip" onclick="filterSkills(this,'data-quality')">Data Quality</button>
+    <button class="chip" onclick="filterSkills(this,'integrity')">Integrity</button>
+    <button class="chip" onclick="filterSkills(this,'migration')">Migration</button>
+    <button class="chip" onclick="filterSkills(this,'consulting')">Consulting</button>
+    <button class="chip" onclick="filterSkills(this,'qa')">QA</button>
+  </div>
+
+  <p id="result-count">Showing all 10 skills</p>
+
+  <div class="skill-grid" id="skill-grid">
+  </div>
+
+  <div id="detail-panel"></div>
+
+  <div class="safe-box">
+    <h4>Zero-data-extraction guarantee</h4>
+    <p>No employee data is ever extracted, stored, or transmitted. Skills operate on schema, metadata, and configuration only. Tenant credentials are never persisted or logged. Every output is client-safe by default - internal technical notes are flagged separately so you never accidentally share unvarnished details.</p>
+  </div>
+</main>
+
+<script>
+// EMBEDDED SKILL DATA - works offline and via file://
+var allSkills = [
+{"id":"sf-config-debt-workshop","name":"Config Debt Workshop","tagline":"Run a complete config debt workshop from discovery to roadmap with one command.","category":"Governance","severity":"HIGH","inputs":"Access to SF tenant or $metadata XML","outputs":"Workshop agenda, discovery questions, executive summary, 90-day roadmap","time":"15-25 min","phases":["Discovery","Assessment","Scoring","Roadmap"],"detail":"Produces a full client-facing workshop package: agenda, discovery questions, severity-scored findings, executive summary, and a prioritised 90-day remediation roadmap. Works with live OData or offline XML. Zero employee data extracted. Each finding is classified by EC domain and mapped to a concrete fix owner. The output is client-safe by default with explicit 'internal only' sections flagged so you never accidentally share unvarnished technical notes.","edgeCases":["Offline mode when tenant unreachable","Truncated XML handled with partial scan","Custom field limits configurable per client","OAuth2 fallback when basic auth fails","Large tenant pacing (batched requests)","Empty tenant (0 entities) produces clean baseline"],"prompt":"Run a config debt workshop for our SF EC tenant and produce the full workshop pack.","exampleOutput":"30 findings scored. CRITICAL: 4, HIGH: 12, MEDIUM: 10, LOW: 4. Top risk: customString fields with >80% blank rate consuming payroll integration bandwidth. Recommended 90-day phased remediation starting with field deprecation sprint.","relatedTools":["sf-config-debt-radar","sf-metadata-vault"],"installable":true},
+{"id":"sf-position-integrity-review","name":"Position Integrity Review","tagline":"Find orphaned positions, broken hierarchies, and missing incumbents before they cause payroll errors.","category":"Data Integrity","severity":"CRITICAL","inputs":"Position and employee OData exports or SF Position Integrity Checker output","outputs":"Integrity score, orphan report, hierarchy gap map, fix recommendations","time":"10-20 min","phases":["Extract","Validate","Map","Report"],"detail":"Scans position management data for inconsistencies that cause downstream payroll and reporting failures: orphaned positions with no parent, broken reporting chains, positions with no incumbents past threshold, cyclical hierarchy loops, and mismatched position/employee counts. Produces a colour-coded integrity score and a prioritised fix list sorted by business impact.","edgeCases":["Matrix organisations with multiple parents","Positions frozen mid-reorg","Dual-employed incumbents (global assignments)","C-suite positions reporting to board (non-EC)","MDF position types not in standard Position entity"],"prompt":"Run a position integrity review across all positions and flag anything that could break payroll or reporting.","exampleOutput":"Integrity score: 67/100 (Amber). 23 orphans, 5 hierarchy cycles, 142 positions with no incumbent >90 days. Top risk: Finance team reporting chain broken at Level 3, 47 positions feed into a terminated manager position.","relatedTools":["sapsf-position-integrity","sf-metadata-vault"],"installable":false},
+{"id":"sf-migration-readiness","name":"Migration Readiness Check","tagline":"Pre-flight check before loading data into SuccessFactors - catch rejects before they happen.","category":"Migration","severity":"CRITICAL","inputs":"Migration data files and target SF tenant metadata","outputs":"Readiness score, schema gap report, picklist value map, pre-load recommendations","time":"10-15 min","phases":["Schema Diff","Value Map","Constraint Check","Pre-Load Report"],"detail":"Compares source migration data against target SF tenant schema before load. Checks: field existence, picklist value validity, required-field population, data type mismatches, field length violations, association integrity, and effective-dated record overlaps. Produces a go/no-go recommendation with specific data fixes needed.","edgeCases":["Source has fields not in target (ignored or mapped?)","Picklist external codes vs labels mismatch","Date-effective records with overlapping intervals","Multi-language value sets","Compound keys (personIdExternal + startDate)","Bulk load vs delta load strategy"],"prompt":"Check our migration files against the target SF tenant and tell us if we're ready to load.","exampleOutput":"Readiness score: 82/100 (Go with caution). 14 schema gaps, 6 picklist values not in target, 2 required fields empty, 31 fields exceeding target length. Pre-load actions: update 6 picklist values in target, populate email and eventReason, truncate addressLine3 to 60 chars.","relatedTools":["migration-tool","sf-config-compare"],"installable":false},
+{"id":"sf-business-rule-risk","name":"Business Rule Risk Review","tagline":"Audit every business rule for logic errors, silent failures, and cross-object conflicts.","category":"Governance","severity":"HIGH","inputs":"Business rule config export or live OData pull","outputs":"Risk matrix, rule interaction map, conflict report, remediation plan","time":"15-30 min","phases":["Inventory","Parse","Map Interactions","Score Risk"],"detail":"Extracts every business rule from the tenant, parses if-then-else logic trees, maps cross-object interactions, and identifies: rules with no trigger condition, unreachable branches, circular dependencies, conflicting rules on the same object, rules referencing deprecated fields, and rules that overwrite each other silently. Produces a risk matrix and a phased remediation plan grouped by business area.","edgeCases":["Rules spanning multiple objects (cross-entity)","OnSave vs onChange execution order conflicts","Rules that run but have no visible effect","Inactive rules that still appear in exports","MDF business rules vs EC business rules","Propagation rules creating cascading updates"],"prompt":"Audit every business rule in our tenant and show us which ones conflict or silently fail.","exampleOutput":"142 rules reviewed. CRITICAL: 3, HIGH: 18, MEDIUM: 27, LOW: 12. Top risk: Rules BR-045 and BR-089 both set jobInfo.department on hire, but execute in different phases causing inconsistent department assignment for 12% of hires.","relatedTools":["sf-config-debt-radar","sf-rule-tester"],"installable":false},
+{"id":"sf-picklist-rationalisation","name":"Picklist Rationalisation","tagline":"Find unused, duplicated, and bloated picklists draining configuration health.","category":"Data Quality","severity":"MEDIUM","inputs":"Picklist metadata or live OData pull","outputs":"Usage report, duplicate detector, consolidation recommendations, cleanup plan","time":"8-12 min","phases":["Inventory","Usage Check","Duplicate Detect","Consolidation Plan"],"detail":"Inventories every picklist, checks each value against actual data usage, identifies duplicates across picklists, flags values with identical labels but different external codes, and recommends which picklists to merge, which values to deprecate, and ordering of cleanup operations to avoid breaking dependent objects.","edgeCases":["Legacy picklists still referenced by inactive rules","Picklists shared across multiple countries (localised labels)","External-code-based integrations that will break on rename","effective-dated picklist values","Parent-child picklists (dependent fields)","Values used in calculated fields / formulas"],"prompt":"Map all our picklists, find the duplicates and unused ones, and give us a safe cleanup plan.","exampleOutput":"87 picklists with 2,143 total values. 312 values (14.6%) never used. 11 duplicate sets found (28 values are carbon copies). Estimated cleanup: remove 340 values across 23 picklists, saving 16% config maintenance overhead. Merge 4 picklist pairs. No production impact if following consolidation order.","relatedTools":["sf-config-debt-radar"],"installable":false},
+{"id":"sf-foundation-object-cleanup","name":"Foundation Object Cleanup","tagline":"Tidy location, department, division, and other foundation data before it breaks reporting.","category":"Data Quality","severity":"HIGH","inputs":"Foundation object data exports","outputs":"Inconsistency report, hierarchy gaps, duplicate detector, dedup plan","time":"12-20 min","phases":["Extract","Validate Hierarchy","Find Duplicates","Cleanup Roadmap"],"detail":"Audits foundation objects (Location, Department, Division, Cost Center, Legal Entity, Pay Component) for: broken parent-child chains, orphaned nodes, near-duplicates (different externalCode same name), inactive nodes still referenced by active positions, and missing mandatory associations. Provides a step-by-step cleanup plan with pre-cleanup snapshots and rollback instructions.","edgeCases":["Circular parent references (A parent of B parent of A)","Foundation objects used across multiple countries","Time-dependent hierarchy changes","Cost center re-organisation mid-financial-year","External system IDs mapped to SF foundation objects","Foundation objects referenced in workflows/approvals"],"prompt":"Check all our foundation objects for inconsistencies and give us a cleanup plan.","exampleOutput":"6 foundation objects audited. 23 broken parent chains, 18 orphaned nodes, 7 duplicate groups. Top risk: Germany Cost Center hierarchy has a circular reference (CC-DE-045 -> CC-DE-012 -> CC-DE-045). 34 terminated employees still assigned to inactive cost centers.","relatedTools":["sf-metadata-vault","sf-config-compare"],"installable":false},
+{"id":"sf-client-discovery","name":"Client Discovery Questions","tagline":"Generate consultant-grade discovery questions tailored to what you already know about the tenant.","category":"Consulting","severity":"MEDIUM","inputs":"Optional: previous scan results, tenant metadata summary, client briefing notes","outputs":"Categorised discovery question bank, workshop agenda, pre-meeting brief","time":"5-10 min","phases":["Context Load","Question Gen","Agenda Build"],"detail":"Generates structured discovery questions organised by SF module and governance area. Adapts to what's already known: if you have scan results, asks targeted follow-ups about specific findings. If you have no data, generates generic first-discovery questions. Always includes: governance maturity questions, pain-point prioritisation exercise, 'what would success look like' framing, and next-steps decision tree. Produces a meeting-ready agenda with timings.","edgeCases":["Client has never had a config review (greenfields)","Client had a bad previous review (rebuilding trust)","Multi-country rollout with different config per country","Client is post-merger with two SF tenants to consolidate","Client wants output in non-English language","Client is procurement/legal only (non-technical audience)"],"prompt":"Generate discovery questions for a new client. They have 3,500 employees across 12 countries and recently acquired a company with a separate SF tenant.","exampleOutput":"34 questions across 5 categories: Governance (8), Custom Fields (6), Business Rules (7), Foundation Objects (5), Migration/Roadmap (8). Workshop agenda: 90-minute session with 4 blocks and a 15-min executive debrief slot. Plus 5 pre-meeting briefing cards for the client's HRIS team so they come prepared.","relatedTools":["sf-config-debt-radar","sf-metadata-vault"],"installable":false},
+{"id":"sf-90-day-roadmap","name":"90-Day Remediation Roadmap","tagline":"Turn a pile of findings into a prioritised, phased remediation plan the client can execute.","category":"Consulting","severity":"HIGH","inputs":"List of config debt findings (from any source)","outputs":"Prioritised 90-day plan, sprint-by-sprint breakdown, effort estimates, risk register","time":"5-8 min","phases":["Score","Cluster","Phase","Package"],"detail":"Takes any set of config debt findings and produces a structured 90-day remediation roadmap. Groups related findings into thematic sprints, estimates effort per sprint, identifies dependencies between sprints, flags which fixes need business sign-off vs pure technical changes, and produces a client-ready presentation deck outline. Each sprint has a clear success metric so the client can track progress week by week.","edgeCases":["Mixed severity: 100+ findings needing triage","Only low-severity findings (does the 90 days even make sense?)","Findings from multiple sources (different scan tools)","Client wants bi-weekly roadmap not sprint-based","No effort data available (defaults to standard sizing)","Some findings are actually by-design (needs exclusion logic)"],"prompt":"We have 47 config debt findings. Build a 90-day remediation roadmap we can present to the client.","exampleOutput":"Phase 1 (Days 1-30): Fix 4 critical findings: field deprecation, duplicate picklist cleanup, broken foundation object hierarchies. Phase 2 (Days 31-60): 12 high-severity business rule conflicts and missing required fields. Phase 3 (Days 61-90): Remaining medium/low findings plus documentation and governance setup. Total estimated effort: 34 person-days across 6 sprints. Each sprint has 2-4 deliverables with acceptance criteria.","relatedTools":["sf-config-debt-radar","sf-rule-map"],"installable":false},
+{"id":"sf-exec-summary","name":"Executive Summary Writer","tagline":"Turn technical findings into a board-ready executive summary in under two minutes.","category":"Consulting","severity":"MEDIUM","inputs":"Config debt findings, assessment results, or integrity review output","outputs":"One-page executive summary, risk heatmap, recommended next steps, budget estimate","time":"2-4 min","phases":["Parse Findings","Draft","Format"],"detail":"Converts raw technical findings into a polished one-page executive summary suitable for CHRO, CIO, or project sponsor. Includes: risk heatmap, top 3 business risks in plain language (no technical jargon), recommended next 3 actions with effort estimates, and a confidence score for the overall config health. Written at board-reading level: strips all technical detail unless explicitly requested. Can produce 'internal' (full detail) and 'board' (sanitised) versions.","edgeCases":["Zero findings (clean tenant - draft an affirmation report)","300+ findings (summarisation threshold)","Mixed audience: some technical some not","Client asks for comparison to industry benchmark","Findings from audit that was 6 months old (stale data caveat)","Multiple tenants / multiple countries needing combined summary"],"prompt":"Write an executive summary from these 54 findings for our CHRO who has 10 minutes before the board meeting.","exampleOutput":"Executive Summary: Your SF configuration has 54 findings: 2 critical, 18 high. The two critical findings pose a payroll accuracy risk affecting 1,200 employees. Top recommended action: a 2-week field deprecation sprint that resolves 60% of high-severity findings in one pass. Estimated total remediation effort: 4-6 weeks of consultant time. Current config health score: 61/100 (Amber).","relatedTools":["sf-config-debt-radar","sf-impact-brief"],"installable":false},
+{"id":"sf-test-scenario-generator","name":"Test Scenario Generator","tagline":"Generate test scenarios from your actual configuration so you don't miss edge cases during UAT.","category":"Quality Assurance","severity":"HIGH","inputs":"Business rules, workflows, or process config export","outputs":"Structured test scenarios, expected results, test data requirements, traceability matrix","time":"8-15 min","phases":["Parse Config","Generate Scenarios","Map Coverage","Output"],"detail":"Reads your live business rules, workflows, and process configurations, then generates realistic test scenarios covering happy path, edge cases, error conditions, and cross-process interactions. Each scenario includes: pre-conditions, test steps, expected result, data needed, and which config rules it validates. Produces a traceability matrix showing which tests cover which business rules so you can demonstrate compliance to auditors.","edgeCases":["Rules that trigger on effective-dated fields (need time-sensitive scenarios)","Compound rules where A AND B AND C must all fire","Workflows with approval chains involving external systems","Propagation rules that cascade across 3+ objects","Rules with dynamic role-based resolution","Off-cycle events (mid-period changes, retroactive updates)"],"prompt":"Generate UAT test scenarios from our hire and job-change business rules. We have a release going live in 3 weeks.","exampleOutput":"48 test scenarios generated covering 31 business rules and 4 workflows. Coverage: 100% of rules have at least 1 scenario, 94% have both happy-path and edge-case. 6 scenarios require specific test employee data (global assignment, future-dated transfer, concurrent employment). Traceability matrix included for audit sign-off.","relatedTools":["sf-rule-tester","sf-config-debt-radar"],"installable":false}
+];
+
+var activeFilters = new Set(['all']);
+var selectedSkillId = null;
+
+function toggleSidebar() {
+  var s = document.getElementById('sidebar');
+  var o = document.getElementById('sidebar-overlay');
+  s.classList.toggle('open');
+  o.classList.toggle('open');
+}
+function toggleNav(el) { el.classList.toggle('open'); saveNavState(); }
+
+function clickNav(sid) {
+  var el = document.getElementById(sid);
+  if (el) { el.scrollIntoView({behavior:'smooth',block:'center'}); }
+  selectSkill(sid);
+  var mq = window.matchMedia('(max-width:768px)');
+  if (mq.matches) toggleSidebar();
+}
+
+function filterSkills(btn, cat) {
+  if (cat === 'all') {
+    activeFilters = new Set(['all']);
+    document.querySelectorAll('#chip-row .chip').forEach(function(c){c.classList.remove('active');});
+    btn.classList.add('active');
+  } else {
+    activeFilters.delete('all');
+    document.querySelector('#chip-row .chip').classList.remove('active');
+    if (activeFilters.has(cat)) { activeFilters.delete(cat); btn.classList.remove('active'); }
+    else { activeFilters.add(cat); btn.classList.add('active'); }
+    if (activeFilters.size === 0) { activeFilters = new Set(['all']); document.querySelector('#chip-row .chip').classList.add('active'); }
+  }
+  renderSkills();
+}
+
+function isFilterMatch(s) {
+  if (activeFilters.has('all')) return true;
+  return activeFilters.has(s.severity.toLowerCase()) || activeFilters.has(s.category.toLowerCase().replace(/ /g,'-'));
+}
+
+function searchSkills(q) {
+  q = (q || '').toLowerCase().trim();
+  if (!q) return allSkills;
+  return allSkills.filter(function(s) {
+    return s.name.toLowerCase().indexOf(q) !== -1 || s.tagline.toLowerCase().indexOf(q) !== -1 || s.detail.toLowerCase().indexOf(q) !== -1;
+  });
+}
+
+function renderSkills() {
+  var q = document.getElementById('search').value;
+  var visible = searchSkills(q).filter(isFilterMatch);
+  var grid = document.getElementById('skill-grid');
+  grid.innerHTML = '';
+  visible.forEach(function(s) {
+    var sevClass = 'tag-' + s.severity.toLowerCase();
+    var card = document.createElement('div');
+    card.className = 'skill-card' + (s.id === selectedSkillId ? ' selected' : '');
+    card.id = s.id;
+    card.setAttribute('tabindex','0');
+    card.innerHTML = '<div class="title-row"><span class="title">'+esc(s.name)+'</span><span class="tag '+sevClass+'">'+s.severity+'</span></div><div class="tagline">'+esc(s.tagline)+'</div><div class="meta"><span>'+esc(s.time)+'</span><span>'+esc(s.category)+'</span>'+(s.installable?'<span style="color:var(--green)">installable</span>':'')+'</div>';
+    card.addEventListener('click', function(){ selectSkill(s.id); });
+    grid.appendChild(card);
+  });
+  document.getElementById('result-count').textContent = 'Showing ' + visible.length + ' of ' + allSkills.length + ' skills';
+  if (visible.length === 0) {
+    grid.innerHTML = '<div class="empty-state"><div class="icon">&#128269;</div><p>No skills match your search or filter. Try different keywords or clear filters.</p></div>';
+  }
+}
+
+function selectSkill(sid) {
+  selectedSkillId = sid;
+  var s = null;
+  for (var i = 0; i < allSkills.length; i++) { if (allSkills[i].id === sid) { s = allSkills[i]; break; } }
+  if (!s) return;
+  var panel = document.getElementById('detail-panel');
+  var sevClass = 'tag-' + s.severity.toLowerCase();
+  var html = '<button id="detail-close" onclick="closeDetail()" aria-label="Close">&times;</button>';
+  html += '<div class="detail-title">'+esc(s.name)+' <span class="tag '+sevClass+'">'+s.severity+'</span></div>';
+  html += '<div class="detail-category">'+esc(s.category)+' - '+esc(s.time)+'</div>';
+  html += '<div class="detail-desc">'+esc(s.detail)+'</div>';
+  html += '<div class="detail-phases">';
+  (s.phases || []).forEach(function(p){ html += '<div class="detail-phase">'+esc(p)+'</div>'; });
+  html += '</div>';
+  html += '<div class="detail-grid"><div class="detail-box"><h4>Inputs</h4><p>'+esc(s.inputs)+'</p></div><div class="detail-box"><h4>Outputs</h4><p>'+esc(s.outputs)+'</p></div></div>';
+  html += '<h4 style="color:var(--muted);font-size:11px;text-transform:uppercase;margin-bottom:6px">Example prompt</h4>';
+  html += '<div class="detail-prompt">&gt; '+esc(s.prompt)+'</div>';
+  html += '<h4 style="color:var(--muted);font-size:11px;text-transform:uppercase;margin-bottom:6px">Example output</h4>';
+  html += '<div class="detail-output">'+esc(s.exampleOutput)+'</div>';
+  html += '<h4 style="color:var(--muted);font-size:11px;text-transform:uppercase;margin-bottom:6px">Edge cases handled</h4>';
+  html += '<div class="detail-edge"><ul>';
+  (s.edgeCases||[]).forEach(function(e){ html += '<li>'+esc(e)+'</li>'; });
+  html += '</ul></div>';
+  if (s.relatedTools && s.relatedTools.length) {
+    html += '<div class="crosslink-row"><span>Related tools:</span>';
+    s.relatedTools.forEach(function(t){ html += '<a href="#">'+esc(t)+'</a>'; });
+    html += '</div>';
+  }
+  panel.innerHTML = html;
+  panel.classList.add('visible');
+  panel.scrollIntoView({behavior:'smooth',block:'center'});
+  renderSkills();
+}
+
+function closeDetail() {
+  selectedSkillId = null;
+  document.getElementById('detail-panel').classList.remove('visible');
+  renderSkills();
+}
+
+function esc(s) { var d=document.createElement('div');d.textContent=s;return d.innerHTML; }
+
+function init() {
+  renderSkills();
+  document.getElementById('search').addEventListener('input', function(){ renderSkills(); });
+  document.addEventListener('keydown', function(e) {
+    if ((e.ctrlKey || e.metaKey) && e.key === 'k') { e.preventDefault(); document.getElementById('search').focus(); }
+    if (e.key === 'Escape') { closeDetail(); }
+  });
+}
+
+function saveNavState() {
+  var states = [];
+  document.querySelectorAll('.nav-header').forEach(function(hh){ states.push(hh.classList.contains('open')); });
+  localStorage.setItem('sf-agent-skills-nav', JSON.stringify(states));
+}
+
+function loadNavState() {
+  var navState = localStorage.getItem('sf-agent-skills-nav');
+  if (navState) {
+    try {
+      var states = JSON.parse(navState);
+      var headers = document.querySelectorAll('.nav-header');
+      for (var i = 0; i < headers.length && i < states.length; i++) {
+        if (states[i]) headers[i].classList.add('open');
+      }
+    } catch(e) {}
+  }
+}
+
+window.addEventListener('DOMContentLoaded', function() {
+  loadNavState();
+  document.querySelectorAll('.nav-header').forEach(function(h){ h.addEventListener('click', saveNavState); });
+  init();
+});
+</script>
+</body>
+</html>
