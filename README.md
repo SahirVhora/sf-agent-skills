@@ -123,3 +123,15 @@ PRs welcome. Each skill follows a standard structure (see existing SKILL.md file
 ## License
 
 MIT - see [LICENSE](LICENSE)
+
+---
+
+## Part of the SF Compass Suite
+
+One of 10 free, open tools for SAP SuccessFactors consultants. Explore the full suite at [SF Compass](https://sahirvhora.github.io/sf-compass/).
+
+Related tools:
+
+- [Config Debt Radar](https://github.com/SahirVhora/sf-config-debt-radar) - Scan EC configuration debt - CLI, dashboard, MCP server
+- [Value Navigator](https://github.com/SahirVhora/sf-value-navigator) - Value realisation consulting framework
+- [Release Tracker](https://github.com/SahirVhora/sf-release-update) - Live tracker for 1H/2H release changes
