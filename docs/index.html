@@ -106,8 +106,8 @@ body{font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,
 .crosslink-row{display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap;align-items:center;font-size:12px;color:var(--muted)}
 .crosslink-row a{color:var(--accent);text-decoration:none;background:var(--accent-soft);padding:2px 10px;border-radius:12px;font-size:11px}
 .crosslink-row a:hover{text-decoration:underline}
-.safe-box{border:1px solid var(--green);border-left:4px solid var(--green);border-radius:8px;padding:14px;margin:24px 0;background:rgba(52,211,153,0.04)}
-.safe-box h4{font-size:13px;color:var(--green);margin-bottom:6px}
+.safe-box{border:1px solid var(--accent);border-left:4px solid var(--accent);border-radius:8px;padding:14px;margin:24px 0;background:var(--accent-soft)}
+.safe-box h4{font-size:13px;color:var(--accent);margin-bottom:6px}
 .safe-box p{font-size:12px;color:var(--muted);line-height:1.5}
 .empty-state{text-align:center;padding:60px 20px;color:var(--muted)}
 .empty-state .icon{font-size:40px;margin-bottom:12px}
@@ -368,7 +368,7 @@ function renderSkills() {
     card.className = 'skill-card' + (s.id === selectedSkillId ? ' selected' : '');
     card.id = s.id;
     card.setAttribute('tabindex','0');
-    card.innerHTML = '<div class="title-row"><span class="title">'+esc(s.name)+'</span><span class="tag '+sevClass+'">'+s.severity+'</span></div><div class="tagline">'+esc(s.tagline)+'</div><div class="meta"><span>'+esc(s.time)+'</span><span>'+esc(s.category)+'</span>'+(s.installable?'<span style="color:var(--green)">installable</span>':'')+'</div>';
+    card.innerHTML = '<div class="title-row"><span class="title">'+esc(s.name)+'</span><span class="tag '+sevClass+'">'+s.severity+'</span></div><div class="tagline">'+esc(s.tagline)+'</div><div class="meta"><span>'+esc(s.time)+'</span><span>'+esc(s.category)+'</span>'+(s.installable?'<span style="color:var(--amber);font-size:11px">installable</span>':'')+'</div>';
     card.addEventListener('click', function(){ selectSkill(s.id); });
     grid.appendChild(card);
   });
