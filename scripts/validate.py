@@ -1,6 +1,9 @@
 #!/usr/bin/env python3
 """Validate sf-agent-skills repo: JSON, frontmatter, HTML, em-dash check."""
-import json, re, os, sys, glob
+import json
+import os
+import sys
+import glob
 from html.parser import HTMLParser
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
