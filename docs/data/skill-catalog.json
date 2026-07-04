@@ -1,0 +1,825 @@
+{
+  "metadata": {
+    "generatedAt": "2026-07-04T09:35:24+00:00",
+    "source": "docs/index.html inline allSkills",
+    "totalSkills": 25,
+    "categories": [
+      "Analytics",
+      "Compensation",
+      "Compliance",
+      "Consulting",
+      "Data Integrity",
+      "Data Quality",
+      "Employee Central",
+      "Governance",
+      "Integration",
+      "Migration",
+      "Onboarding",
+      "Operations",
+      "Quality Assurance",
+      "Recruiting",
+      "Release Governance",
+      "Security",
+      "Time and Payroll"
+    ]
+  },
+  "skills": [
+    {
+      "id": "sf-config-debt-workshop",
+      "name": "Config Debt Workshop",
+      "tagline": "Run a complete config debt workshop from discovery to roadmap with one command.",
+      "category": "Governance",
+      "severity": "HIGH",
+      "inputs": "Access to SF tenant or $metadata XML",
+      "outputs": "Workshop agenda, discovery questions, executive summary, 90-day roadmap",
+      "time": "15-25 min",
+      "phases": [
+        "Discovery",
+        "Assessment",
+        "Scoring",
+        "Roadmap"
+      ],
+      "detail": "Produces a full client-facing workshop package: agenda, discovery questions, severity-scored findings, executive summary, and a prioritised 90-day remediation roadmap. Works with live OData or offline XML. Zero employee data extracted. Each finding is classified by EC domain and mapped to a concrete fix owner. The output is client-safe by default with explicit 'internal only' sections flagged so you never accidentally share unvarnished technical notes.",
+      "edgeCases": [
+        "Offline mode when tenant unreachable",
+        "Truncated XML handled with partial scan",
+        "Custom field limits configurable per client",
+        "OAuth2 fallback when basic auth fails",
+        "Large tenant pacing (batched requests)",
+        "Empty tenant (0 entities) produces clean baseline"
+      ],
+      "prompt": "Run a config debt workshop for our SF EC tenant and produce the full workshop pack.",
+      "exampleOutput": "30 findings scored. CRITICAL: 4, HIGH: 12, MEDIUM: 10, LOW: 4. Top risk: customString fields with >80% blank rate consuming payroll integration bandwidth. Recommended 90-day phased remediation starting with field deprecation sprint.",
+      "relatedTools": [
+        "sf-config-debt-radar",
+        "sf-metadata-vault"
+      ],
+      "installable": true
+    },
+    {
+      "id": "sf-position-integrity-review",
+      "name": "Position Integrity Review",
+      "tagline": "Find orphaned positions, broken hierarchies, and missing incumbents before they cause payroll errors.",
+      "category": "Data Integrity",
+      "severity": "CRITICAL",
+      "inputs": "Position and employee OData exports or SF Position Integrity Checker output",
+      "outputs": "Integrity score, orphan report, hierarchy gap map, fix recommendations",
+      "time": "10-20 min",
+      "phases": [
+        "Extract",
+        "Validate",
+        "Map",
+        "Report"
+      ],
+      "detail": "Scans position management data for inconsistencies that cause downstream payroll and reporting failures: orphaned positions with no parent, broken reporting chains, positions with no incumbents past threshold, cyclical hierarchy loops, and mismatched position/employee counts. Produces a colour-coded integrity score and a prioritised fix list sorted by business impact.",
+      "edgeCases": [
+        "Matrix organisations with multiple parents",
+        "Positions frozen mid-reorg",
+        "Dual-employed incumbents (global assignments)",
+        "C-suite positions reporting to board (non-EC)",
+        "MDF position types not in standard Position entity"
+      ],
+      "prompt": "Run a position integrity review across all positions and flag anything that could break payroll or reporting.",
+      "exampleOutput": "Integrity score: 67/100 (Amber). 23 orphans, 5 hierarchy cycles, 142 positions with no incumbent >90 days. Top risk: Finance team reporting chain broken at Level 3, 47 positions feed into a terminated manager position.",
+      "relatedTools": [
+        "sapsf-position-integrity",
+        "sf-metadata-vault"
+      ],
+      "installable": false
+    },
+    {
+      "id": "sf-migration-readiness",
+      "name": "Migration Readiness Check",
+      "tagline": "Pre-flight check before loading data into SuccessFactors - catch rejects before they happen.",
+      "category": "Migration",
+      "severity": "CRITICAL",
+      "inputs": "Migration data files and target SF tenant metadata",
+      "outputs": "Readiness score, schema gap report, picklist value map, pre-load recommendations",
+      "time": "10-15 min",
+      "phases": [
+        "Schema Diff",
+        "Value Map",
+        "Constraint Check",
+        "Pre-Load Report"
+      ],
+      "detail": "Compares source migration data against target SF tenant schema before load. Checks: field existence, picklist value validity, required-field population, data type mismatches, field length violations, association integrity, and effective-dated record overlaps. Produces a go/no-go recommendation with specific data fixes needed.",
+      "edgeCases": [
+        "Source has fields not in target (ignored or mapped?)",
+        "Picklist external codes vs labels mismatch",
+        "Date-effective records with overlapping intervals",
+        "Multi-language value sets",
+        "Compound keys (personIdExternal + startDate)",
+        "Bulk load vs delta load strategy"
+      ],
+      "prompt": "Check our migration files against the target SF tenant and tell us if we're ready to load.",
+      "exampleOutput": "Readiness score: 82/100 (Go with caution). 14 schema gaps, 6 picklist values not in target, 2 required fields empty, 31 fields exceeding target length. Pre-load actions: update 6 picklist values in target, populate email and eventReason, truncate addressLine3 to 60 chars.",
+      "relatedTools": [
+        "migration-tool",
+        "sf-config-compare"
+      ],
+      "installable": false
+    },
+    {
+      "id": "sf-business-rule-risk",
+      "name": "Business Rule Risk Review",
+      "tagline": "Audit every business rule for logic errors, silent failures, and cross-object conflicts.",
+      "category": "Governance",
+      "severity": "HIGH",
+      "inputs": "Business rule config export or live OData pull",
+      "outputs": "Risk matrix, rule interaction map, conflict report, remediation plan",
+      "time": "15-30 min",
+      "phases": [
+        "Inventory",
+        "Parse",
+        "Map Interactions",
+        "Score Risk"
+      ],
+      "detail": "Extracts every business rule from the tenant, parses if-then-else logic trees, maps cross-object interactions, and identifies: rules with no trigger condition, unreachable branches, circular dependencies, conflicting rules on the same object, rules referencing deprecated fields, and rules that overwrite each other silently. Produces a risk matrix and a phased remediation plan grouped by business area.",
+      "edgeCases": [
+        "Rules spanning multiple objects (cross-entity)",
+        "OnSave vs onChange execution order conflicts",
+        "Rules that run but have no visible effect",
+        "Inactive rules that still appear in exports",
+        "MDF business rules vs EC business rules",
+        "Propagation rules creating cascading updates"
+      ],
+      "prompt": "Audit every business rule in our tenant and show us which ones conflict or silently fail.",
+      "exampleOutput": "142 rules reviewed. CRITICAL: 3, HIGH: 18, MEDIUM: 27, LOW: 12. Top risk: Rules BR-045 and BR-089 both set jobInfo.department on hire, but execute in different phases causing inconsistent department assignment for 12% of hires.",
+      "relatedTools": [
+        "sf-config-debt-radar",
+        "sf-rule-tester"
+      ],
+      "installable": false
+    },
+    {
+      "id": "sf-picklist-rationalisation",
+      "name": "Picklist Rationalisation",
+      "tagline": "Find unused, duplicated, and bloated picklists draining configuration health.",
+      "category": "Data Quality",
+      "severity": "MEDIUM",
+      "inputs": "Picklist metadata or live OData pull",
+      "outputs": "Usage report, duplicate detector, consolidation recommendations, cleanup plan",
+      "time": "8-12 min",
+      "phases": [
+        "Inventory",
+        "Usage Check",
+        "Duplicate Detect",
+        "Consolidation Plan"
+      ],
+      "detail": "Inventories every picklist, checks each value against actual data usage, identifies duplicates across picklists, flags values with identical labels but different external codes, and recommends which picklists to merge, which values to deprecate, and ordering of cleanup operations to avoid breaking dependent objects.",
+      "edgeCases": [
+        "Legacy picklists still referenced by inactive rules",
+        "Picklists shared across multiple countries (localised labels)",
+        "External-code-based integrations that will break on rename",
+        "effective-dated picklist values",
+        "Parent-child picklists (dependent fields)",
+        "Values used in calculated fields / formulas"
+      ],
+      "prompt": "Map all our picklists, find the duplicates and unused ones, and give us a safe cleanup plan.",
+      "exampleOutput": "87 picklists with 2,143 total values. 312 values (14.6%) never used. 11 duplicate sets found (28 values are carbon copies). Estimated cleanup: remove 340 values across 23 picklists, saving 16% config maintenance overhead. Merge 4 picklist pairs. No production impact if following consolidation order.",
+      "relatedTools": [
+        "sf-config-debt-radar"
+      ],
+      "installable": false
+    },
+    {
+      "id": "sf-foundation-object-cleanup",
+      "name": "Foundation Object Cleanup",
+      "tagline": "Tidy location, department, division, and other foundation data before it breaks reporting.",
+      "category": "Data Quality",
+      "severity": "HIGH",
+      "inputs": "Foundation object data exports",
+      "outputs": "Inconsistency report, hierarchy gaps, duplicate detector, dedup plan",
+      "time": "12-20 min",
+      "phases": [
+        "Extract",
+        "Validate Hierarchy",
+        "Find Duplicates",
+        "Cleanup Roadmap"
+      ],
+      "detail": "Audits foundation objects (Location, Department, Division, Cost Center, Legal Entity, Pay Component) for: broken parent-child chains, orphaned nodes, near-duplicates (different externalCode same name), inactive nodes still referenced by active positions, and missing mandatory associations. Provides a step-by-step cleanup plan with pre-cleanup snapshots and rollback instructions.",
+      "edgeCases": [
+        "Circular parent references (A parent of B parent of A)",
+        "Foundation objects used across multiple countries",
+        "Time-dependent hierarchy changes",
+        "Cost center re-organisation mid-financial-year",
+        "External system IDs mapped to SF foundation objects",
+        "Foundation objects referenced in workflows/approvals"
+      ],
+      "prompt": "Check all our foundation objects for inconsistencies and give us a cleanup plan.",
+      "exampleOutput": "6 foundation objects audited. 23 broken parent chains, 18 orphaned nodes, 7 duplicate groups. Top risk: Germany Cost Center hierarchy has a circular reference (CC-DE-045 -> CC-DE-012 -> CC-DE-045). 34 terminated employees still assigned to inactive cost centers.",
+      "relatedTools": [
+        "sf-metadata-vault",
+        "sf-config-compare"
+      ],
+      "installable": false
+    },
+    {
+      "id": "sf-client-discovery",
+      "name": "Client Discovery Questions",
+      "tagline": "Generate consultant-grade discovery questions tailored to what you already know about the tenant.",
+      "category": "Consulting",
+      "severity": "MEDIUM",
+      "inputs": "Optional: previous scan results, tenant metadata summary, client briefing notes",
+      "outputs": "Categorised discovery question bank, workshop agenda, pre-meeting brief",
+      "time": "5-10 min",
+      "phases": [
+        "Context Load",
+        "Question Gen",
+        "Agenda Build"
+      ],
+      "detail": "Generates structured discovery questions organised by SF module and governance area. Adapts to what's already known -- if you have scan results, asks targeted follow-ups about specific findings. If you have no data, generates generic first-discovery questions. Always includes: governance maturity questions, pain-point prioritisation exercise, 'what would success look like' framing, and next-steps decision tree. Produces a meeting-ready agenda with timings.",
+      "edgeCases": [
+        "Client has never had a config review (greenfields)",
+        "Client had a bad previous review (rebuilding trust)",
+        "Multi-country rollout with different config per country",
+        "Client is post-merger with two SF tenants to consolidate",
+        "Client wants output in non-English language",
+        "Client is procurement/legal only (non-technical audience)"
+      ],
+      "prompt": "Generate discovery questions for a new client. They have 3,500 employees across 12 countries and recently acquired a company with a separate SF tenant.",
+      "exampleOutput": "34 questions across 5 categories: Governance (8), Custom Fields (6), Business Rules (7), Foundation Objects (5), Migration/Roadmap (8). Workshop agenda: 90-minute session with 4 blocks and a 15-min executive debrief slot. Plus 5 pre-meeting briefing cards for the client's HRIS team so they come prepared.",
+      "relatedTools": [
+        "sf-config-debt-radar",
+        "sf-metadata-vault"
+      ],
+      "installable": false
+    },
+    {
+      "id": "sf-90-day-roadmap",
+      "name": "90-Day Remediation Roadmap",
+      "tagline": "Turn a pile of findings into a prioritised, phased remediation plan the client can execute.",
+      "category": "Consulting",
+      "severity": "HIGH",
+      "inputs": "List of config debt findings (from any source)",
+      "outputs": "Prioritised 90-day plan, sprint-by-sprint breakdown, effort estimates, risk register",
+      "time": "5-8 min",
+      "phases": [
+        "Score",
+        "Cluster",
+        "Phase",
+        "Package"
+      ],
+      "detail": "Takes any set of config debt findings and produces a structured 90-day remediation roadmap. Groups related findings into thematic sprints, estimates effort per sprint, identifies dependencies between sprints, flags which fixes need business sign-off vs pure technical changes, and produces a client-ready presentation deck outline. Each sprint has a clear success metric so the client can track progress week by week.",
+      "edgeCases": [
+        "Mixed severity: 100+ findings needing triage",
+        "Only low-severity findings (does the 90 days even make sense?)",
+        "Findings from multiple sources (different scan tools)",
+        "Client wants bi-weekly roadmap not sprint-based",
+        "No effort data available (defaults to standard sizing)",
+        "Some findings are actually by-design (needs exclusion logic)"
+      ],
+      "prompt": "We have 47 config debt findings. Build a 90-day remediation roadmap we can present to the client.",
+      "exampleOutput": "Phase 1 (Days 1-30): Fix 4 critical findings -- field deprecation, duplicate picklist cleanup, broken foundation object hierarchies. Phase 2 (Days 31-60): 12 high-severity business rule conflicts and missing required fields. Phase 3 (Days 61-90): Remaining medium/low findings plus documentation and governance setup. Total estimated effort: 34 person-days across 6 sprints. Each sprint has 2-4 deliverables with acceptance criteria.",
+      "relatedTools": [
+        "sf-config-debt-radar",
+        "sf-rule-map"
+      ],
+      "installable": false
+    },
+    {
+      "id": "sf-exec-summary",
+      "name": "Executive Summary Writer",
+      "tagline": "Turn technical findings into a board-ready executive summary in under two minutes.",
+      "category": "Consulting",
+      "severity": "MEDIUM",
+      "inputs": "Config debt findings, assessment results, or integrity review output",
+      "outputs": "One-page executive summary, risk heatmap, recommended next steps, budget estimate",
+      "time": "2-4 min",
+      "phases": [
+        "Parse Findings",
+        "Draft",
+        "Format"
+      ],
+      "detail": "Converts raw technical findings into a polished one-page executive summary suitable for CHRO, CIO, or project sponsor. Includes: risk heatmap, top 3 business risks in plain language (no technical jargon), recommended next 3 actions with effort estimates, and a confidence score for the overall config health. Written at board-reading level -- strips all technical detail unless explicitly requested. Can produce 'internal' (full detail) and 'board' (sanitised) versions.",
+      "edgeCases": [
+        "Zero findings (clean tenant - draft an affirmation report)",
+        "300+ findings (summarisation threshold)",
+        "Mixed audience: some technical some not",
+        "Client asks for comparison to industry benchmark",
+        "Findings from audit that was 6 months old (stale data caveat)",
+        "Multiple tenants / multiple countries needing combined summary"
+      ],
+      "prompt": "Write an executive summary from these 54 findings for our CHRO who has 10 minutes before the board meeting.",
+      "exampleOutput": "Executive Summary: Your SF configuration has 54 findings: 2 critical, 18 high. The two critical findings pose a payroll accuracy risk affecting 1,200 employees. Top recommended action: a 2-week field deprecation sprint that resolves 60% of high-severity findings in one pass. Estimated total remediation effort: 4-6 weeks of consultant time. Current config health score: 61/100 (Amber).",
+      "relatedTools": [
+        "sf-config-debt-radar",
+        "sf-impact-brief"
+      ],
+      "installable": false
+    },
+    {
+      "id": "sf-test-scenario-generator",
+      "name": "Test Scenario Generator",
+      "tagline": "Generate test scenarios from your actual configuration so you don't miss edge cases during UAT.",
+      "category": "Quality Assurance",
+      "severity": "HIGH",
+      "inputs": "Business rules, workflows, or process config export",
+      "outputs": "Structured test scenarios, expected results, test data requirements, traceability matrix",
+      "time": "8-15 min",
+      "phases": [
+        "Parse Config",
+        "Generate Scenarios",
+        "Map Coverage",
+        "Output"
+      ],
+      "detail": "Reads your live business rules, workflows, and process configurations, then generates realistic test scenarios covering happy path, edge cases, error conditions, and cross-process interactions. Each scenario includes: pre-conditions, test steps, expected result, data needed, and which config rules it validates. Produces a traceability matrix showing which tests cover which business rules so you can demonstrate compliance to auditors.",
+      "edgeCases": [
+        "Rules that trigger on effective-dated fields (need time-sensitive scenarios)",
+        "Compound rules where A AND B AND C must all fire",
+        "Workflows with approval chains involving external systems",
+        "Propagation rules that cascade across 3+ objects",
+        "Rules with dynamic role-based resolution",
+        "Off-cycle events (mid-period changes, retroactive updates)"
+      ],
+      "prompt": "Generate UAT test scenarios from our hire and job-change business rules. We have a release going live in 3 weeks.",
+      "exampleOutput": "48 test scenarios generated covering 31 business rules and 4 workflows. Coverage: 100% of rules have at least 1 scenario, 94% have both happy-path and edge-case. 6 scenarios require specific test employee data (global assignment, future-dated transfer, concurrent employment). Traceability matrix included for audit sign-off.",
+      "relatedTools": [
+        "sf-rule-tester",
+        "sf-config-debt-radar"
+      ],
+      "installable": false
+    },
+    {
+      "id": "sf-rbp-permission-auditor",
+      "name": "RBP Permission Auditor",
+      "tagline": "Detect over-permissioned roles, hidden access paths, and SoD risks before audit season.",
+      "category": "Security",
+      "severity": "CRITICAL",
+      "inputs": "Role, group, target population, proxy, and permission export snapshots",
+      "outputs": "Permission risk matrix, toxic-combination report, remediation plan, sign-off pack",
+      "time": "20-35 min",
+      "phases": [
+        "Inventory",
+        "Probe",
+        "Score",
+        "Remediate"
+      ],
+      "detail": "Audits SuccessFactors Role-Based Permissions across roles, groups, target populations, proxy settings, and sensitive admin grants. Flags excessive admin access, employee-data visibility beyond business need, toxic combinations such as compensation plus personal data export, and permission drift between sandbox and production. Produces a client-safe access-risk pack for HRIS, IT security, and audit stakeholders.",
+      "edgeCases": [
+        "Dynamic groups with stale membership",
+        "Target populations that include terminated users",
+        "Proxy access bypassing normal manager visibility",
+        "Permission roles inherited through multiple groups",
+        "Emergency admin roles never removed",
+        "Country-specific data visibility exceptions"
+      ],
+      "prompt": "Audit our SF RBP setup and show which roles create access or segregation-of-duty risks.",
+      "exampleOutput": "126 permission roles reviewed. CRITICAL: 5, HIGH: 17. Top risk: HR Operations role grants export access to compensation and national ID fields for all employees, including countries outside support scope. Immediate action: split role by country and remove export permission pending DPO review.",
+      "relatedTools": [
+        "sf-rbp-blast-radius",
+        "sf-config-compare"
+      ],
+      "installable": true
+    },
+    {
+      "id": "sf-tenant-drift-detector",
+      "name": "Tenant Drift Detector",
+      "tagline": "Compare sandbox and production so releases do not fail because the tenants quietly diverged.",
+      "category": "Release Governance",
+      "severity": "HIGH",
+      "inputs": "Metadata/config snapshots from two or more SF tenants",
+      "outputs": "Drift report, release risk score, deploy blockers, rollback watchlist",
+      "time": "10-20 min",
+      "phases": [
+        "Snapshot",
+        "Diff",
+        "Classify",
+        "Release Gate"
+      ],
+      "detail": "Compares configuration snapshots across preview, test, staging, and production tenants. Detects changes in business rules, picklists, foundation objects, MDF objects, event reasons, workflows, RBP roles, and metadata fields. Classifies each drift item by release impact and whether it is intentional, missing transport, hotfix, or unknown. Produces a release gate decision with blockers and recommended reconciliation order.",
+      "edgeCases": [
+        "Intentional hotfix in production",
+        "Preview tenant upgraded before production",
+        "Different country rollout scope per tenant",
+        "Inactive config present in only one tenant",
+        "Config Center export missing some objects",
+        "Emergency release overlapping SAP release cycle"
+      ],
+      "prompt": "Compare our preview and production SF tenants and tell us what drift could break the next release.",
+      "exampleOutput": "412 objects compared. 37 drift items found: 4 blockers, 12 review required, 21 informational. Top blocker: business rule BR-HIRE-014 differs between preview and production and writes different eventReason values on hire. Release gate: no-go until production hotfix is reconciled.",
+      "relatedTools": [
+        "sf-audit",
+        "sf-metadata-vault",
+        "sf-config-compare"
+      ],
+      "installable": true
+    },
+    {
+      "id": "sf-release-impact-triage",
+      "name": "Release Impact Triage",
+      "tagline": "Turn SAP release notes into a tenant-specific test plan and stakeholder briefing.",
+      "category": "Release Governance",
+      "severity": "HIGH",
+      "inputs": "SAP release notes, enabled modules, tenant config summary, previous incidents",
+      "outputs": "Impact matrix, regression test scope, owner list, executive change brief",
+      "time": "8-15 min",
+      "phases": [
+        "Parse Notes",
+        "Match Tenant",
+        "Prioritise",
+        "Test Plan"
+      ],
+      "detail": "Reads SAP SuccessFactors release content and maps each item to the modules and configuration patterns used by the client. Separates action-required, review-and-test, and informational items. Produces a compact triage board with owners, regression tests, change communications, and watch items for the release weekend.",
+      "edgeCases": [
+        "Feature auto-enabled by SAP",
+        "Module licensed but not actively used",
+        "Localized change applies only to one country",
+        "Deprecated feature still used in old process",
+        "Regression test owner unknown",
+        "Preview tenant data too stale for meaningful test"
+      ],
+      "prompt": "Review the latest SF release notes against our enabled modules and produce a regression test plan.",
+      "exampleOutput": "76 release items triaged. Action required: 6, review and test: 19, informational: 51. Top item: Time Tracking validation change impacts UK hourly population, regression tests assigned to Payroll Ops and HRIS. Executive brief: 3 key risks and release weekend checkpoint plan.",
+      "relatedTools": [
+        "sf-release-update",
+        "sf-impact-brief"
+      ],
+      "installable": true
+    },
+    {
+      "id": "sf-drtm-gdpr-readiness",
+      "name": "DRTM and GDPR Readiness",
+      "tagline": "Check whether data retention rules are configured, defensible, and safe to execute.",
+      "category": "Compliance",
+      "severity": "CRITICAL",
+      "inputs": "DRTM config, legal entity/country list, retention policies, purge simulation output",
+      "outputs": "Retention coverage map, purge risk report, legal sign-off checklist, remediation plan",
+      "time": "15-25 min",
+      "phases": [
+        "Policy Map",
+        "Coverage Check",
+        "Purge Simulation",
+        "Sign-Off"
+      ],
+      "detail": "Assesses Data Retention Time Management configuration against GDPR and local retention policies. Checks whether countries, legal entities, employee groups, and data domains have retention rules, whether retention periods conflict with policy, and whether purge jobs could delete data needed for payroll, litigation hold, or statutory reporting. Produces a compliance-ready sign-off pack.",
+      "edgeCases": [
+        "Employees with multiple employments across countries",
+        "Legal hold exceptions",
+        "Historical payroll dependencies",
+        "Terminated employees rehired after purge window",
+        "Country-specific retention overrides",
+        "Incomplete purge simulation logs"
+      ],
+      "prompt": "Review our DRTM setup and tell us if we are safe to run purge jobs this quarter.",
+      "exampleOutput": "Coverage score: 71/100. 8 countries lack approved retention rules, 3 legal entities have conflicting purge windows, and payroll evidence retention is shorter than Finance policy in Spain. Recommendation: stop purge run until legal sign-off and payroll dependency exception list are updated.",
+      "relatedTools": [
+        "sf-config-debt-radar",
+        "sf-metadata-vault"
+      ],
+      "installable": true
+    },
+    {
+      "id": "sf-integration-health-monitor",
+      "name": "Integration Health Monitor",
+      "tagline": "Find brittle Integration Center, CPI, and OData jobs before downstream systems go stale.",
+      "category": "Integration",
+      "severity": "HIGH",
+      "inputs": "Integration Center job list, CPI iFlow inventory, OData error logs, schedule details",
+      "outputs": "Integration risk dashboard, stale-data map, failure pattern report, runbook fixes",
+      "time": "15-30 min",
+      "phases": [
+        "Inventory",
+        "Error Pattern",
+        "Freshness Check",
+        "Runbook"
+      ],
+      "detail": "Audits SuccessFactors integration jobs for failure patterns, stale schedules, missing owners, weak retry handling, payload drift, and downstream data freshness risks. Covers Integration Center, CPI/iFlow, scheduled exports, API consumers, and middleware dependencies. Produces a practical operations dashboard and runbook for HRIS support.",
+      "edgeCases": [
+        "Job succeeds but sends zero records",
+        "Payload schema changed without job failure",
+        "Time-zone schedule drift around daylight saving",
+        "Downstream endpoint accepts file but rejects rows later",
+        "Multiple jobs update the same target system",
+        "Credential expiry date not visible in SF job list"
+      ],
+      "prompt": "Audit our SF integrations and show which jobs are brittle, failing silently, or causing stale downstream data.",
+      "exampleOutput": "58 integrations reviewed. 7 high-risk jobs, 11 medium-risk jobs. Top risk: nightly cost center export reports success but has sent zero rows for 9 days after a picklist filter change. Recommended action: add freshness check, owner alert, and row-count threshold before payroll cut-off.",
+      "relatedTools": [
+        "sf-metadata-vault",
+        "sf-audit"
+      ],
+      "installable": true
+    },
+    {
+      "id": "sf-workflow-stuck-item-triage",
+      "name": "Workflow Stuck Item Triage",
+      "tagline": "Unblock approvals by finding stale approvers, invalid routes, and escalation gaps.",
+      "category": "Operations",
+      "severity": "HIGH",
+      "inputs": "Workflow instances, approver assignments, employee/job status, escalation rules",
+      "outputs": "Stuck workflow queue, root-cause clusters, reassignment plan, prevention rules",
+      "time": "10-18 min",
+      "phases": [
+        "Queue",
+        "Root Cause",
+        "Reassign",
+        "Prevent"
+      ],
+      "detail": "Analyses pending and failed workflows to identify why approvals are stuck. Detects inactive approvers, terminated managers, missing HRBP assignments, invalid dynamic roles, duplicate pending steps, escalation loops, and workflows blocked by future-dated job changes. Produces a prioritized triage queue and prevention improvements.",
+      "edgeCases": [
+        "Approver is active but on long-term leave",
+        "Dynamic group resolves to zero people",
+        "Workflow stuck because manager change is future-dated",
+        "Mass approvals during reorg",
+        "Duplicate pending workflows from resubmission",
+        "Country-specific workflow path missing backup approver"
+      ],
+      "prompt": "Find all stuck SF workflows and give us the root causes plus the quickest way to unblock them.",
+      "exampleOutput": "319 open workflow items reviewed. 42 are stale over 14 days. Root causes: 18 terminated approvers, 9 empty dynamic roles, 7 escalation loops, 8 future-dated manager dependencies. Immediate unblock: reassign 27 items to HR Operations queue and correct 3 dynamic role definitions.",
+      "relatedTools": [
+        "sf-rule-map",
+        "sf-config-debt-radar"
+      ],
+      "installable": true
+    },
+    {
+      "id": "sf-people-analytics-quality-review",
+      "name": "People Analytics Quality Review",
+      "tagline": "Check whether reports are trusted, performant, governed, and safe to use for decisions.",
+      "category": "Analytics",
+      "severity": "MEDIUM",
+      "inputs": "Report catalog, story definitions, user access, refresh schedules, business KPIs",
+      "outputs": "Report health score, duplicate report map, data trust issues, governance actions",
+      "time": "12-22 min",
+      "phases": [
+        "Catalog",
+        "Trust Check",
+        "Performance",
+        "Governance"
+      ],
+      "detail": "Reviews People Analytics, Report Center, and story reports for duplicate reports, stale owners, missing data definitions, weak filters, row-level security gaps, slow queries, and inconsistent KPI logic. Produces a report rationalisation plan and governance model so HR leaders know which dashboards to trust.",
+      "edgeCases": [
+        "Two reports use same title but different filters",
+        "Owner left the business",
+        "Report includes terminated employees unexpectedly",
+        "Country filter missing for works council region",
+        "Story dashboard joins incompatible datasets",
+        "Scheduled report sends sensitive data to large group"
+      ],
+      "prompt": "Review our People Analytics reports and tell us which dashboards are safe, duplicated, or misleading.",
+      "exampleOutput": "184 reports reviewed. 39 duplicates, 22 stale owners, 14 reports with sensitive fields sent by schedule, 9 KPI conflicts. Recommendation: retire 51 reports, certify 23 executive dashboards, and add report owner review every quarter.",
+      "relatedTools": [
+        "sf-nexus",
+        "sf-metadata-vault"
+      ],
+      "installable": true
+    },
+    {
+      "id": "sf-onboarding-compliance-review",
+      "name": "Onboarding Compliance Review",
+      "tagline": "Validate forms, tasks, document flows, and local compliance before new hires start.",
+      "category": "Onboarding",
+      "severity": "HIGH",
+      "inputs": "Onboarding process config, task templates, compliance forms, country/localisation list",
+      "outputs": "Compliance gap report, task coverage matrix, new-hire risk list, remediation actions",
+      "time": "15-25 min",
+      "phases": [
+        "Process Map",
+        "Form Coverage",
+        "Task Logic",
+        "Compliance Pack"
+      ],
+      "detail": "Audits SuccessFactors Onboarding 2.0 processes for missing forms, country-specific compliance gaps, task assignment failures, document template drift, duplicate new-hire tasks, and handoff breaks between Recruiting, Onboarding, and EC. Produces a country-by-country readiness matrix and UAT pack.",
+      "edgeCases": [
+        "Remote hire with no office location",
+        "Cross-border hire moving between legal entities",
+        "Candidate data missing before EC hire conversion",
+        "Compliance form differs by province/state",
+        "Rehire uses old onboarding process",
+        "Task owner role resolves after start date"
+      ],
+      "prompt": "Review our Onboarding setup for compliance and task coverage gaps across all countries.",
+      "exampleOutput": "12 countries reviewed. 4 high-risk gaps: missing right-to-work task for UK remote hires, duplicate tax form in Canada, no fallback owner for equipment task, and rehire process skips policy acknowledgement. UAT pack includes 28 scenarios by country and worker type.",
+      "relatedTools": [
+        "sf-test-scenario-generator",
+        "sf-release-update"
+      ],
+      "installable": true
+    },
+    {
+      "id": "sf-time-tracking-rule-audit",
+      "name": "Time Tracking Rule Audit",
+      "tagline": "Audit time valuation, holiday calendars, overtime logic, and payroll handoff risks.",
+      "category": "Time and Payroll",
+      "severity": "CRITICAL",
+      "inputs": "Time profiles, time valuation rules, work schedules, holiday calendars, payroll mappings",
+      "outputs": "Time rule risk report, payroll handoff checks, country exception map, UAT scenarios",
+      "time": "20-35 min",
+      "phases": [
+        "Calendar",
+        "Rule Logic",
+        "Payroll Mapping",
+        "Regression"
+      ],
+      "detail": "Reviews Time Tracking configuration for payroll-impacting errors: incorrect holiday calendars, missing time profiles, overtime threshold mismatches, break deductions, cross-midnight shifts, time account posting logic, and payroll wage-type mappings. Produces a regression test pack and payroll cut-off risk report.",
+      "edgeCases": [
+        "Cross-midnight shift spanning two pay periods",
+        "Public holiday differs by region",
+        "Overtime rule changes mid-year",
+        "Employee transfers country during time period",
+        "Absence overlaps recorded working time",
+        "Rounding rule differs between SF and payroll"
+      ],
+      "prompt": "Audit our SF Time Tracking rules and tell us what could cause payroll errors.",
+      "exampleOutput": "92 time rules reviewed across 7 countries. CRITICAL: 3, HIGH: 11. Top risk: UK night-shift rule posts overtime after 8 hours but payroll expects threshold at 7.5 hours, creating underpayment risk. Regression pack: 44 scenarios covering holidays, overtime, absences, and transfers.",
+      "relatedTools": [
+        "sf-test-scenario-generator",
+        "sf-rule-tester"
+      ],
+      "installable": true
+    },
+    {
+      "id": "sf-compensation-eligibility-audit",
+      "name": "Compensation Eligibility Audit",
+      "tagline": "Catch worksheet eligibility, proration, budget, and guideline logic before compensation planning opens.",
+      "category": "Compensation",
+      "severity": "HIGH",
+      "inputs": "Compensation template config, eligibility rules, proration settings, budget model, employee sample",
+      "outputs": "Eligibility risk matrix, worksheet test plan, budget/proration checks, executive readiness score",
+      "time": "15-28 min",
+      "phases": [
+        "Eligibility",
+        "Proration",
+        "Budget",
+        "Worksheet UAT"
+      ],
+      "detail": "Audits Compensation and Variable Pay configuration before cycle launch. Checks eligibility rules, guideline formulas, proration logic, currency conversion, budget allocation, route maps, executive review permissions, and worksheet population rules. Produces a readiness score and cycle-launch test plan.",
+      "edgeCases": [
+        "Employee changes job mid-cycle",
+        "Global assignment with multiple currencies",
+        "Eligibility based on custom field with blanks",
+        "Manager has direct and matrix reports",
+        "Leave of absence affects proration",
+        "Budget owner changes after worksheets generate"
+      ],
+      "prompt": "Audit our compensation cycle setup before launch and show what could break worksheets or budgets.",
+      "exampleOutput": "Cycle readiness: 78/100. 4 launch blockers: blank eligibility field excludes 312 employees, proration formula overpays LOA population, EUR to GBP conversion table stale, and executive worksheet role grants edit access instead of view-only. Recommended action: fix blockers before forms launch.",
+      "relatedTools": [
+        "sf-test-scenario-generator",
+        "sf-rbp-permission-auditor"
+      ],
+      "installable": true
+    },
+    {
+      "id": "sf-event-reason-decision-tree",
+      "name": "EC Event Reason Decision Tree",
+      "tagline": "Validate hire, rehire, transfer, promotion, termination, and job-change event reason logic before it breaks downstream processes.",
+      "category": "Employee Central",
+      "severity": "CRITICAL",
+      "inputs": "Event reason list, event derivation rules, workflow triggers, payroll/integration mappings",
+      "outputs": "Decision tree, conflict report, missing event reason map, UAT scenarios",
+      "time": "15-25 min",
+      "phases": [
+        "Inventory",
+        "Decision Tree",
+        "Conflict Check",
+        "UAT Pack"
+      ],
+      "detail": "Audits Employee Central event and event reason configuration so every hire, rehire, termination, transfer, promotion, leave, and data correction follows a defensible decision path. Detects duplicate event reasons, missing scenarios, wrong event categories, workflow trigger mismatches, payroll-impacting event errors, and integration mappings that rely on outdated eventReason values.",
+      "edgeCases": [
+        "Rehire with new employment vs rehire on old employment",
+        "Data correction using business event reason",
+        "Promotion plus transfer in same effective-dated change",
+        "Global assignment start/end events",
+        "Termination followed by rescind or no-show",
+        "Country-specific event reason overrides"
+      ],
+      "prompt": "Build an EC event reason decision tree and show where our hire, rehire, transfer, promotion, and termination logic conflicts.",
+      "exampleOutput": "92 event reasons reviewed. CRITICAL: 4, HIGH: 9. Top issue: promotion and transfer both map to DATACHG for payroll export, making downstream payroll unable to distinguish salary-impacting changes. Decision tree created with 37 valid paths and 6 missing event reasons.",
+      "relatedTools": [
+        "sf-rule-map",
+        "sf-config-debt-radar"
+      ],
+      "installable": true
+    },
+    {
+      "id": "sf-ec-payroll-reconciliation-pack",
+      "name": "EC to Payroll Reconciliation Pack",
+      "tagline": "Compare EC configuration against payroll expectations so employee changes do not create pay errors.",
+      "category": "Time and Payroll",
+      "severity": "CRITICAL",
+      "inputs": "EC job/person/pay field mappings, payroll interface spec, event reason mappings, pay component setup",
+      "outputs": "Payroll reconciliation checklist, mismatch categories, cut-off readiness score, exception plan",
+      "time": "20-35 min",
+      "phases": [
+        "Map",
+        "Compare",
+        "Score",
+        "Cut-Off Pack"
+      ],
+      "detail": "Creates a payroll reconciliation pack that checks whether Employee Central changes produce the fields, events, pay components, cost centres, and effective dates payroll expects. Focuses on configuration and mapping alignment, not storing payroll amounts. Flags event reason mismatch, missing pay components, stale payroll area mappings, effective date overlaps, and cut-off risks before payroll processing.",
+      "edgeCases": [
+        "Retroactive job change after payroll cut-off",
+        "Mid-period cost centre transfer",
+        "Pay component starts before hire date",
+        "Terminated employee receives future-dated change",
+        "Global assignment split payroll",
+        "Payroll provider expects label but SF sends externalCode"
+      ],
+      "prompt": "Create an EC to payroll reconciliation pack and show which mappings or event reasons could cause payroll errors this month.",
+      "exampleOutput": "Payroll readiness: 74/100. 5 blockers: transfer event maps to wrong payroll action, 3 pay components missing wage-type mapping, 2 cost centre values inactive in payroll, and retro changes after cut-off have no exception workflow. Recommendation: no-go until blockers cleared.",
+      "relatedTools": [
+        "sf-time-tracking-rule-audit",
+        "sf-event-reason-decision-tree"
+      ],
+      "installable": true
+    },
+    {
+      "id": "sf-position-jobinfo-alignment-audit",
+      "name": "Position to Job Info Alignment Audit",
+      "tagline": "Find where Position attributes and employee JobInfo have drifted apart.",
+      "category": "Data Integrity",
+      "severity": "HIGH",
+      "inputs": "Position data, JobInfo data, propagation rules, sync settings, effective-dated snapshots",
+      "outputs": "Alignment score, mismatch report, propagation rule gaps, safe correction plan",
+      "time": "12-22 min",
+      "phases": [
+        "Extract",
+        "Compare",
+        "Root Cause",
+        "Correction Plan"
+      ],
+      "detail": "Compares Position Management fields against employee JobInfo values to find misalignment in department, division, cost centre, location, job classification, manager, FTE, and custom attributes. Identifies whether drift is caused by missing propagation rules, manual overrides, inactive positions, future-dated changes, or reorganisation timing. Produces a safe correction plan grouped by business impact.",
+      "edgeCases": [
+        "Manual override intentionally differs from position",
+        "Future-dated position change not yet reflected in JobInfo",
+        "Shared position with multiple incumbents",
+        "Vacant position changed before hire assigned",
+        "Country-specific propagation exceptions",
+        "Matrix manager differs from position manager"
+      ],
+      "prompt": "Compare Position and JobInfo data and show where attributes are misaligned or propagation rules are missing.",
+      "exampleOutput": "Alignment score: 81/100. 264 mismatches found: 112 cost centre, 79 department, 41 location, 32 manager. Top risk: 47 employees in Finance have JobInfo cost centres that differ from their positions after reorg, causing finance reporting leakage. Fix plan groups mismatches by propagation rule gap.",
+      "relatedTools": [
+        "sf-position-integrity-review",
+        "sf-foundation-object-cleanup"
+      ],
+      "installable": true
+    },
+    {
+      "id": "sf-works-council-privacy-pack",
+      "name": "Works Council and Privacy Impact Pack",
+      "tagline": "Prepare a client-safe explanation of SF changes for works council, DPO, and privacy review.",
+      "category": "Compliance",
+      "severity": "HIGH",
+      "inputs": "Change description, affected fields, affected populations, access roles, data flows, country scope",
+      "outputs": "Privacy impact summary, works council briefing, data access matrix, consultation checklist",
+      "time": "10-18 min",
+      "phases": [
+        "Change Scope",
+        "Data Map",
+        "Impact Summary",
+        "Consultation Pack"
+      ],
+      "detail": "Turns a planned SuccessFactors change into a plain-English works council and privacy review pack. Explains what is changing, which employee data is affected, who can see it, why it is needed, whether automation or profiling is involved, and what safeguards exist. Especially useful for Germany, France, Netherlands, and other high-consultation environments.",
+      "edgeCases": [
+        "Change affects monitoring or productivity signals",
+        "Sensitive fields visible to managers",
+        "Cross-border data transfer to non-EU processor",
+        "Automated decision support or AI inference involved",
+        "Works council requests field-level access matrix",
+        "Local country process differs from global template"
+      ],
+      "prompt": "Create a works council and privacy impact pack for a new SF change that adds manager visibility to absence and performance indicators.",
+      "exampleOutput": "Privacy impact: High. Works council attention areas: manager visibility of absence trend, performance indicator context, cross-border reporting to global HR. Pack includes field-level data matrix, purpose statement, safeguards, consultation questions, and recommended changes to reduce monitoring concern.",
+      "relatedTools": [
+        "sf-rbp-permission-auditor",
+        "sf-drtm-gdpr-readiness"
+      ],
+      "installable": true
+    },
+    {
+      "id": "sf-recruiting-offer-approval-audit",
+      "name": "Recruiting Requisition and Offer Approval Audit",
+      "tagline": "Check RCM requisition templates, offer approvals, and handoff logic before hiring stalls.",
+      "category": "Recruiting",
+      "severity": "HIGH",
+      "inputs": "RCM requisition templates, offer approval rules, route maps, field permissions, onboarding handoff config",
+      "outputs": "Template health report, approval path gaps, candidate handoff risks, hiring process UAT pack",
+      "time": "15-25 min",
+      "phases": [
+        "Template Inventory",
+        "Approval Map",
+        "Handoff Check",
+        "UAT Pack"
+      ],
+      "detail": "Audits SAP SuccessFactors Recruiting configuration across requisition templates, offer approvals, route maps, candidate status transitions, field permissions, and Recruiting-to-Onboarding handoff. Flags inconsistent template fields, missing approvers, approval loops, offer fields not mapped to onboarding, candidate status dead-ends, and country-specific compliance gaps.",
+      "edgeCases": [
+        "Internal candidate follows different route map",
+        "Offer approval differs by compensation threshold",
+        "Hiring manager changes during requisition approval",
+        "Candidate accepts offer after requisition is closed",
+        "Country-specific offer letter fields missing",
+        "Recruiting-to-Onboarding handoff fails for rehire"
+      ],
+      "prompt": "Audit our recruiting requisition templates and offer approval routing and show what could stall hiring or break onboarding handoff.",
+      "exampleOutput": "23 requisition templates and 11 offer routes reviewed. HIGH: 8 issues. Top risk: UK senior role offer approval skips Finance when salary exceeds threshold because compensation field differs across templates. Handoff gap: 4 offer fields required by Onboarding are blank for internal candidates.",
+      "relatedTools": [
+        "sf-onboarding-compliance-review",
+        "sf-test-scenario-generator"
+      ],
+      "installable": true
+    }
+  ]
+}
