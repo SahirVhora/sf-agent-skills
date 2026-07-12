@@ -28,6 +28,14 @@ Run a full client-facing config debt workshop for SAP SuccessFactors Employee Ce
 - Either: access to SF tenant (API credentials), OR a `$metadata` XML export file
 - No employee data is extracted -- schema and counts only
 
+## Evidence and Human Control
+
+- Capture source evidence with tenant, scope and snapshot date.
+- Separate observed configuration evidence from assumptions and stakeholder statements.
+- No employee data is required or permitted in the deliverable.
+- Remediation needs named human approval from the HRIS/SF owner; the skill never writes configuration.
+- Re-run the scan after remediation and retain before/after evidence.
+
 ## Workflow
 
 ### Step 1: Discovery

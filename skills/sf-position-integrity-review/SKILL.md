@@ -28,6 +28,14 @@ Scan position management data for structural inconsistencies that cause payroll,
 - SF Position Integrity Checker tool (if available)
 - Or raw Position OData entities with parentPosition, incumbent, and status fields
 
+## Evidence and Human Control
+
+- Capture source evidence with tenant, population, effective date and extraction timestamp.
+- Separate validation evidence from assumptions about payroll, workflow and integration impact.
+- Treat employee identifiers and incumbent details as sensitive data; minimise and mask them in client outputs.
+- Require human approval from HR data and HRIS/SF owners before any remediation or writeback.
+- Re-run the integrity checks after remediation and reconcile the before/after population.
+
 ## Workflow (Manual Analysis)
 
 ### Step 1: Extract position data

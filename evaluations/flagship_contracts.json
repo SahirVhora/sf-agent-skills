@@ -1,0 +1,27 @@
+[
+  {
+    "skill": "sf-config-debt-workshop",
+    "required_concepts": ["source evidence", "assumptions", "no employee data", "human approval", "re-run"],
+    "reason": "Configuration-debt recommendations must be traceable, privacy-safe and verified after remediation."
+  },
+  {
+    "skill": "sf-position-integrity-review",
+    "required_concepts": ["source evidence", "assumptions", "sensitive data", "human approval", "re-run"],
+    "reason": "Position findings may contain employee context and must not trigger uncontrolled remediation."
+  },
+  {
+    "skill": "sf-migration-readiness",
+    "required_concepts": ["source evidence", "assumptions", "sensitive data", "human approval", "re-run"],
+    "reason": "A migration go/no-go recommendation must retain accountable human ownership and validation evidence."
+  },
+  {
+    "skill": "sf-rbp-permission-auditor",
+    "required_concepts": ["source evidence", "assumptions", "employee-sensitive data", "DPO review", "re-run"],
+    "reason": "Security remediation requires evidence, privacy review and post-change validation."
+  },
+  {
+    "skill": "sf-tenant-drift-detector",
+    "required_concepts": ["source evidence", "assumptions", "employee-sensitive data", "release gate", "re-run"],
+    "reason": "Release gating must be based on dated evidence and verified reconciliation."
+  }
+]
