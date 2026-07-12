@@ -19,6 +19,14 @@ Pre-load validation that catches rejects before they happen. Compares source dat
 - Before loading employee master data into a new SF tenant
 - Before delta loads during phased migration
 - After data transformation to verify output matches target schema
+
+## Evidence and Human Control
+
+- Capture source evidence for the source file, target metadata, mappings and validation timestamp.
+- Separate observed defects from assumptions about business meaning or acceptable defaults.
+- Treat migration files as sensitive data; minimise extracts and never include credentials in outputs.
+- A go/no-go recommendation is decision support: accountable programme and data owners retain human approval.
+- Re-run schema, picklist and constraint validation after every material correction and retain the results.
 - When switching from test to production tenant (schema may differ)
 - Before weekend cutover load
 

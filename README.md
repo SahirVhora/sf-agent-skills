@@ -5,7 +5,9 @@
 
 **AI skills for SAP SuccessFactors consultants.** Turn messy configuration, migration risk, and workshop prep into repeatable AI-assisted workflows.
 
-Twenty-five production skills covering governance, security, compliance, release governance, integration, operations, analytics, onboarding, time/payroll, compensation, recruiting, Employee Central, data quality, migration, consulting, and quality assurance. Each skill is a composable, auditable workflow that an AI agent can execute - with zero employee data extraction.
+Twenty-five structured skills covering governance, security, compliance, release governance, integration, operations, analytics, onboarding, time/payroll, compensation, recruiting, Employee Central, data quality, migration, consulting, and quality assurance. Each skill is a composable workflow for an AI agent, with explicit evidence and human-control expectations.
+
+Five flagship workflows have dependency-free evidence-contract evaluations covering traceability, assumptions, sensitive-data handling, human approval, and post-remediation validation. Run `python3 scripts/evaluate_flagship_skills.py` before release. These contracts validate workflow safeguards; they are not a claim that every model output is correct.
 
 ## Live Site
 
