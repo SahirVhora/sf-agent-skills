@@ -29,3 +29,7 @@ credentials.json
 .DS_Store
 .idea/
 .vscode/
+
+.audit-result.json
+.claude/settings.local.json
+.under-anything/

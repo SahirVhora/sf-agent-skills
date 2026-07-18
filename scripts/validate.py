@@ -10,6 +10,27 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 errors = []
 skill_ids = set()
 
+
+def parse_frontmatter(text):
+    """Parse the simple top-level keys required by the validator.
+
+    PyYAML is optional in this repo's venv, so keep validation useful even when
+    the dependency is not installed.
+    """
+    try:
+        import yaml
+
+        parsed = yaml.safe_load(text)
+        return parsed if isinstance(parsed, dict) else {}
+    except ImportError:
+        parsed = {}
+        for line in text.splitlines():
+            if not line or line.startswith(' ') or ':' not in line:
+                continue
+            key, value = line.split(':', 1)
+            parsed[key.strip()] = value.strip()
+        return parsed
+
 # 1. Validate skill-catalog.json
 catalog_path = os.path.join(ROOT, 'docs/data/skill-catalog.json')
 try:
@@ -38,11 +59,7 @@ for sf in sorted(skill_files):
         end_idx = content.find('\n---\n', 3)
         assert end_idx > 0, 'Missing closing ---'
         fm_text = content[3:end_idx]
-        fm = None
-        try:
-            import yaml; fm = yaml.safe_load(fm_text)
-        except ImportError:
-            fm = {}
+        fm = parse_frontmatter(fm_text)
         required_fields = ['name','description','version','author','license']
         for rf in required_fields:
             if isinstance(fm, dict):
