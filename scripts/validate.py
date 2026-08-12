@@ -54,7 +54,8 @@ except Exception as e:
 skill_files = glob.glob(os.path.join(ROOT, 'skills/*/SKILL.md'))
 for sf in sorted(skill_files):
     try:
-        with open(sf) as f: content = f.read()
+        with open(sf) as f:
+            content = f.read()
         assert content.startswith('---'), 'Missing opening ---'
         end_idx = content.find('\n---\n', 3)
         assert end_idx > 0, 'Missing closing ---'
@@ -83,14 +84,23 @@ for sid in skill_ids:
 # 4. Validate HTML parsing
 html_path = os.path.join(ROOT, 'docs/index.html')
 try:
-    with open(html_path) as f: html_content = f.read()
+    with open(html_path) as f:
+        html_content = f.read()
+
     class Validator(HTMLParser):
-        def __init__(self): super().__init__(); self.stack = []; self.errors = []
-        def handle_starttag(self,tag,attrs):
-            if tag not in ('br','hr','img','input','meta','link'): self.stack.append(tag)
-        def handle_endtag(self,tag):
+        def __init__(self):
+            super().__init__()
+            self.stack = []
+            self.errors = []
+        def handle_starttag(self, tag, attrs):
             if tag not in ('br','hr','img','input','meta','link'):
-                if self.stack and self.stack[-1] == tag: self.stack.pop()
+                self.stack.append(tag)
+
+        def handle_endtag(self, tag):
+            if tag not in ('br','hr','img','input','meta','link'):
+                if self.stack and self.stack[-1] == tag:
+                    self.stack.pop()
+
     v = Validator()
     v.feed(html_content)
     assert not v.errors, 'HTML parse errors: ' + str(v.errors)
@@ -116,7 +126,8 @@ for path in [os.path.join(ROOT, '.nojekyll'), os.path.join(ROOT, 'docs', '.nojek
         errors.append(f'MISSING: {path}')
 
 if errors:
-    for e in errors: print(e)
+    for e in errors:
+        print(e)
     sys.exit(1)
 else:
     print('\nAll validations passed.')
