@@ -116,9 +116,12 @@ for root_dir in ['skills','docs']:
             for fn in filenames:
                 if fn.endswith(('.md','.html','.json','.txt')):
                     fpath = os.path.join(dirpath, fn)
-                    with open(fpath) as f:
-                        if '\u2014' in f.read() or '\u2013' in f.read():
-                            errors.append(f'EM-DASH FOUND: {fpath}')
+                    with open(fpath, encoding='utf-8') as f:
+                        text = f.read()
+                    if '\u2014' in text:
+                        errors.append(f'EM-DASH FOUND: {fpath}')
+                    if '\u2013' in text:
+                        errors.append(f'EN-DASH FOUND: {fpath}')
 
 # 6. Check .nojekyll exists
 for path in [os.path.join(ROOT, '.nojekyll'), os.path.join(ROOT, 'docs', '.nojekyll')]:

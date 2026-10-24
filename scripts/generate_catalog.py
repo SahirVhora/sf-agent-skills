@@ -1,10 +1,16 @@
 #!/usr/bin/env python3
-"""Generate the GitHub Pages skill catalog JSON from the published site data."""
+"""Generate the GitHub Pages skill catalog JSON from the published site data.
+
+Usage:
+    python scripts/generate_catalog.py          # rewrite docs/data/skill-catalog.json
+    python scripts/generate_catalog.py --check  # fail if the catalog is missing or stale
+"""
 
 from __future__ import annotations
 
 import json
 import re
+import sys
 from datetime import datetime, timezone
 from pathlib import Path
 
@@ -62,9 +68,41 @@ def validate_skills(skills: list[dict]) -> None:
             )
 
 
-def main() -> int:
+def check_catalog(skills: list[dict]) -> int:
+    """Fail if the committed catalog is missing or out of step with the site."""
+    if not CATALOG_PATH.exists():
+        print(f"FAIL: {CATALOG_PATH.relative_to(ROOT)} is missing. "
+              "Run: python scripts/generate_catalog.py")
+        return 1
+    try:
+        committed = json.loads(CATALOG_PATH.read_text(encoding="utf-8"))
+    except json.JSONDecodeError as exc:
+        print(f"FAIL: {CATALOG_PATH.relative_to(ROOT)} is not valid JSON: {exc}")
+        return 1
+    problems = []
+    if committed.get("skills") != skills:
+        problems.append("skills differ from docs/index.html allSkills")
+    meta = committed.get("metadata", {})
+    if meta.get("totalSkills") != len(skills):
+        problems.append(
+            f"metadata.totalSkills is {meta.get('totalSkills')}, expected {len(skills)}"
+        )
+    if meta.get("categories") != sorted({s["category"] for s in skills}):
+        problems.append("metadata.categories out of date")
+    if problems:
+        print("FAIL: skill-catalog.json is out of date: " + "; ".join(problems))
+        print("Run: python scripts/generate_catalog.py and commit the result")
+        return 1
+    print(f"PASS: skill-catalog.json matches docs/index.html ({len(skills)} skills)")
+    return 0
+
+
+def main(argv: list[str] | None = None) -> int:
+    argv = sys.argv[1:] if argv is None else argv
     skills = load_inline_skills()
     validate_skills(skills)
+    if "--check" in argv:
+        return check_catalog(skills)
     categories = sorted({skill["category"] for skill in skills})
     catalog = {
         "metadata": {
