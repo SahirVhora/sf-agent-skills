@@ -115,7 +115,7 @@ sf-agent-skills/
 ## Related projects
 
 - [sf-config-debt-radar](https://github.com/SahirVhora/sf-config-debt-radar) - MCP server that powers the config debt scan tools
-- [sf-metadata-vault](https://github.com/SahirVhora/sf-metadata-vault) - Browse and compare SF metadata
+- [sf-config-compare](https://github.com/SahirVhora/sf-config-compare) - Compare SF metadata and picklists across tenants
 - [sf-position-integrity-checker](https://github.com/SahirVhora/sf-position-integrity-checker) - Position integrity validation
 
 ## Contributing
