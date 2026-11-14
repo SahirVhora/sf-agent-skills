@@ -7,7 +7,7 @@
 
 Twenty-five structured skills covering governance, security, compliance, release governance, integration, operations, analytics, onboarding, time/payroll, compensation, recruiting, Employee Central, data quality, migration, consulting, and quality assurance. Each skill is a composable workflow for an AI agent, with explicit evidence and human-control expectations.
 
-Five flagship workflows have dependency-free evidence-contract evaluations covering traceability, assumptions, sensitive-data handling, human approval, and post-remediation validation. Run `python3 scripts/evaluate_flagship_skills.py` before release. These contracts validate workflow safeguards; they are not a claim that every model output is correct.
+Five flagship workflows have dependency-free evidence-contract evaluations covering traceability, assumptions, sensitive-data handling, human approval, and post-remediation validation. Run `python3 scripts/evaluate_flagship_skills.py` before release. If you change the skill data in `docs/index.html`, run `python3 scripts/generate_catalog.py` to refresh `docs/data/skill-catalog.json`; CI runs it with `--check` and fails if the catalog is missing or out of date. These contracts validate workflow safeguards; they are not a claim that every model output is correct.
 
 ## Live Site
 
